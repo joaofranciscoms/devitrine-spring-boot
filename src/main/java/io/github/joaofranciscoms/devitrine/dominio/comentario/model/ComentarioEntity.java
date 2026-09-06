@@ -1,0 +1,39 @@
+package io.github.joaofranciscoms.devitrine.dominio.comentario.model;
+
+import io.github.joaofranciscoms.devitrine.dominio.post.model.PostEntity;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity
+@Data
+@Table(name = "comentario")
+@EntityListeners(AuditingEntityListener.class)
+public class ComentarioEntity {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(name = "conteudo", nullable = false)
+    private String conteudo;
+
+    @Column(name = "data_postagem")
+    @CreatedDate
+    private LocalDateTime dataPostagem;
+
+    @Column(name = "data_atualizacao")
+    @LastModifiedDate
+    private LocalDateTime dataAtualizacao;
+
+    @ManyToOne
+    @ToString.Exclude
+    private PostEntity post;
+}
