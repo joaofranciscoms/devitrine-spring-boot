@@ -5,7 +5,7 @@ import io.github.joaofranciscoms.devitrine.dominio.comentario.dto.ComentarioDTO;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.dto.ComentarioDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.mapper.ComentarioDetalhesMapper;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.mapper.ComentarioMapper;
-import io.github.joaofranciscoms.devitrine.dominio.comentario.model.ComentarioEntity;
+import io.github.joaofranciscoms.devitrine.dominio.comentario.model.Comentario;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.repository.ComentarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,7 +23,7 @@ public class ComentarioService {
     private final ComentarioDetalhesMapper comentarioDetalhesMapper;
 
     public ComentarioDetalhesDTO save(ComentarioDTO dto){
-        ComentarioEntity entity = comentarioMapper.toEntity(dto);
+        Comentario entity = comentarioMapper.toEntity(dto);
         repository.save(entity);
         return comentarioDetalhesMapper.toDTO(entity);
     }
@@ -43,7 +43,7 @@ public class ComentarioService {
     }
 
     public void delete(UUID id){
-        ComentarioEntity entity = repository.findById(id).orElseThrow(() -> new ComentarioNaoEncontradoException());
+        Comentario entity = repository.findById(id).orElseThrow(() -> new ComentarioNaoEncontradoException());
         repository.delete(entity);
     }
 }

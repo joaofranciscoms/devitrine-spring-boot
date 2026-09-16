@@ -1,0 +1,27 @@
+<header class="header">
+    <h1>Publicações</h1>
+
+    <div class="user-area">
+        <span class="user-name">Olá, Usuário</span>
+    </div>
+</header>
+
+<main class="content">
+    <div class="card-full">
+        <div class="comment-card">
+            @if (post$ | async; as post) {
+                <div class="title-date">
+                    <h2>{{ post.titulo }}</h2>
+                    <p>{{ post.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</p>
+                </div>
+                <div class="post-content">
+                    <p>{{ post.conteudo }}</p>
+                </div>
+            }
+
+            <div>
+                <button class="secundary-btn">Comentar</button>
+            </div>
+        </div>
+    </div>
+</main>

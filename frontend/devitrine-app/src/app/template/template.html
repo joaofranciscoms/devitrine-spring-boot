@@ -1,0 +1,17 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span>Devitrine</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a class="menu-item" [routerLink]="['/paginas/listagem-posts']">
+                <span>Publicações</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

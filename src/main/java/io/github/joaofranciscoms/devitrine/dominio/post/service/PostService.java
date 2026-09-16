@@ -1,13 +1,11 @@
 package io.github.joaofranciscoms.devitrine.dominio.post.service;
 
-import io.github.joaofranciscoms.devitrine.common.ComentarioNaoEncontradoException;
 import io.github.joaofranciscoms.devitrine.common.PostNaoEncontradoException;
-import io.github.joaofranciscoms.devitrine.dominio.comentario.model.ComentarioEntity;
 import io.github.joaofranciscoms.devitrine.dominio.post.dto.PostDTO;
 import io.github.joaofranciscoms.devitrine.dominio.post.dto.PostDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.post.mapper.PostDetalhesMapper;
 import io.github.joaofranciscoms.devitrine.dominio.post.mapper.PostMapper;
-import io.github.joaofranciscoms.devitrine.dominio.post.model.PostEntity;
+import io.github.joaofranciscoms.devitrine.dominio.post.model.Post;
 import io.github.joaofranciscoms.devitrine.dominio.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +23,7 @@ public class PostService {
     private final PostDetalhesMapper postDetalhesMapper;
 
     public PostDetalhesDTO save(PostDTO dto){
-        PostEntity entity = postMapper.toEntity(dto);
+        Post entity = postMapper.toEntity(dto);
         repository.save(entity);
         return postDetalhesMapper.toDTO(entity);
     }
@@ -46,7 +44,7 @@ public class PostService {
     }
 
     public void delete(UUID id){
-        PostEntity entity = repository.findById(id).orElseThrow(() -> new PostNaoEncontradoException());
+        Post entity = repository.findById(id).orElseThrow(() -> new PostNaoEncontradoException());
         repository.delete(entity);
     }
 }

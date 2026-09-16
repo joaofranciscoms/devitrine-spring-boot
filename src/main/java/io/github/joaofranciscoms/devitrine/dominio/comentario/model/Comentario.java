@@ -1,6 +1,6 @@
 package io.github.joaofranciscoms.devitrine.dominio.comentario.model;
 
-import io.github.joaofranciscoms.devitrine.dominio.post.model.PostEntity;
+import io.github.joaofranciscoms.devitrine.dominio.post.model.Post;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -15,14 +15,14 @@ import java.util.UUID;
 @Data
 @Table(name = "comentario")
 @EntityListeners(AuditingEntityListener.class)
-public class ComentarioEntity {
+public class Comentario {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "conteudo", nullable = false)
+    @Column(name = "conteudo", nullable = false, columnDefinition = "TEXT")
     private String conteudo;
 
     @Column(name = "data_postagem")
@@ -35,5 +35,5 @@ public class ComentarioEntity {
 
     @ManyToOne
     @ToString.Exclude
-    private PostEntity post;
+    private Post post;
 }

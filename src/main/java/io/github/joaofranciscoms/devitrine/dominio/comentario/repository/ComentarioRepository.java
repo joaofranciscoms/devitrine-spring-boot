@@ -1,9 +1,9 @@
 package io.github.joaofranciscoms.devitrine.dominio.comentario.repository;
 
-import io.github.joaofranciscoms.devitrine.dominio.comentario.model.ComentarioEntity;
+import io.github.joaofranciscoms.devitrine.dominio.comentario.model.Comentario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface ComentarioRepository extends JpaRepository<ComentarioEntity, UUID> {
+public interface ComentarioRepository extends JpaRepository<Comentario, UUID> {
 }

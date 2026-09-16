@@ -1,0 +1,237 @@
+:root {
+    --color-bg: #f4f5f1;
+    --color-ink: #26282b;
+    --color-surface: #ffffff;
+    --color-hairline: #e2e4de;
+    --font-ui: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-ui);
+    background-color: var(--color-bg);
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-ink);
+    width: 220px;
+}
+
+.sidebar-logo {
+    padding: 22px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-bg);
+    border-bottom: 1px solid rgba(244, 245, 241, 0.1);
+}
+
+.sidebar-menu {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+
+    a {
+        margin-top: 8px;
+        margin-left: 20px;
+        color: white;
+        text-decoration: none;
+    }
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    height: 65px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-hairline);  
+    
+    h1 {
+        margin-left: 15px;
+        font-size: 25px;
+    }
+}
+
+.user-area {
+    margin-right: 25px;
+}
+
+.content {
+    padding: 28px;
+}
+
+.card-full {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+}
+
+.card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    max-width: 460px;
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-ink);
+}
+
+.table-card {
+    margin-top: 4px;
+}
+
+.datatable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.datatable thead th {
+    text-align: left;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--color-ink-soft);
+}
+
+.datatable tbody td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--color-hairline);
+    color: var(--color-ink);
+}
+
+.datatable tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.datatable tbody tr:hover {
+    background-color: var(--color-bg);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.table-footer {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--color-ink-soft);
+}
+
+.pagination {
+    display: flex;
+    gap: 6px;
+}
+
+.page-btn {
+    min-width: 30px;
+    height: 30px;
+    border: 1px solid var(--color-hairline);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 12.5px;
+    font-family: var(--font-mono);
+    color: var(--color-ink);
+    transition: all 0.15s ease;
+}
+
+.page-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.post-title {
+    cursor: pointer;
+}
+
+.icon-btn {
+    padding: 5px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--color-hairline);
+    background-color: var(--color-surface);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font-ui);
+}
+
+.icon-btn:hover {
+    background-color: var(--color-ink);
+    background-color: var(--color-bg);
+}
+
+.title-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.primary-btn {
+    background-color: var(--color-ink);
+    color: var(--color-bg);
+    border: 1px solid var(--color-surface);
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13.5px;
+    transition: opacity 0.15s ease;
+    margin-right: 5px;
+}
+
+.secundary-btn {
+    margin-top: 30px;
+    background-color: var(--color-ink);
+    color: var(--color-bg);
+    border: 1px solid var(--color-surface);
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13.5px;
+    transition: opacity 0.15s ease;
+    margin-right: 5px;
+}
+
+.comment-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+}
+
+.post-content {
+    margin-top: 20px;
+}
