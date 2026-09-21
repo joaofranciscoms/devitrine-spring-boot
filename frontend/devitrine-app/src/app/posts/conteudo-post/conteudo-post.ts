@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { PostService } from '../post-service';
 import { DetalhesPost } from '../dados-post';
@@ -13,14 +13,21 @@ import { DetalhesPost } from '../dados-post';
 })
 export class ConteudoPost implements OnInit {
 
-  private route = inject(ActivatedRoute);
-  private postService = inject(PostService);
+  route = inject(ActivatedRoute);
+  service = inject(PostService);
+  router = inject(Router)
 
-  post$!: Observable<DetalhesPost>;
+  post$!: Observable<DetalhesPost>
 
   ngOnInit(): void {
     this.post$ = this.route.queryParams.pipe(
-      switchMap(params => this.postService.obterPorId(params['id']))
+      switchMap(params => this.service.obterPorId(params['id']))
     );
+  }
+
+  comentar(idPost: string){
+    this.router.navigate(['paginas/comentario-post'], {
+      queryParams: {id: idPost}
+    });    
   }
 }

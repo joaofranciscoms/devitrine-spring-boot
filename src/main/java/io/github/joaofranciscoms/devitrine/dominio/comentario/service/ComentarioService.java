@@ -1,12 +1,16 @@
 package io.github.joaofranciscoms.devitrine.dominio.comentario.service;
 
 import io.github.joaofranciscoms.devitrine.common.ComentarioNaoEncontradoException;
+import io.github.joaofranciscoms.devitrine.common.PostNaoEncontradoException;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.dto.ComentarioDTO;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.dto.ComentarioDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.mapper.ComentarioDetalhesMapper;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.mapper.ComentarioMapper;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.model.Comentario;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.repository.ComentarioRepository;
+import io.github.joaofranciscoms.devitrine.dominio.post.model.Post;
+import io.github.joaofranciscoms.devitrine.dominio.post.repository.PostRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,32 +22,38 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ComentarioService {
 
-    private final ComentarioRepository repository;
+    private final ComentarioRepository comentarioRepository;
+    private final PostRepository postRepository;
     private final ComentarioMapper comentarioMapper;
     private final ComentarioDetalhesMapper comentarioDetalhesMapper;
 
     public ComentarioDetalhesDTO save(ComentarioDTO dto){
+        Post post = postRepository.findById(dto.idPost())
+                .orElseThrow(() -> new PostNaoEncontradoException());
+
         Comentario entity = comentarioMapper.toEntity(dto);
-        repository.save(entity);
+        entity.setPost(post);
+
+        comentarioRepository.save(entity);
         return comentarioDetalhesMapper.toDTO(entity);
     }
 
     public ComentarioDetalhesDTO findById(UUID id){
-        return repository.findById(id).map(comentarioDetalhesMapper::toDTO).orElseThrow(() -> new ComentarioNaoEncontradoException());
+        return comentarioRepository.findById(id).map(comentarioDetalhesMapper::toDTO).orElseThrow(() -> new ComentarioNaoEncontradoException());
     }
 
     public void update(UUID id, ComentarioDTO dto){
         var entity = comentarioMapper.toEntity(dto);
         entity.setConteudo(dto.conteudo());
-        repository.save(entity);
+        comentarioRepository.save(entity);
     }
 
     public Page<ComentarioDetalhesDTO> list(PageRequest pageRequest){
-        return repository.findAll(pageRequest).map(comentarioDetalhesMapper::toDTO);
+        return comentarioRepository.findAll(pageRequest).map(comentarioDetalhesMapper::toDTO);
     }
 
     public void delete(UUID id){
-        Comentario entity = repository.findById(id).orElseThrow(() -> new ComentarioNaoEncontradoException());
-        repository.delete(entity);
+        Comentario entity = comentarioRepository.findById(id).orElseThrow(() -> new ComentarioNaoEncontradoException());
+        comentarioRepository.delete(entity);
     }
 }

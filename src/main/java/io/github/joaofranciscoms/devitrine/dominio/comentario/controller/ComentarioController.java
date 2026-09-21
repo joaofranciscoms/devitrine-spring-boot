@@ -15,6 +15,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/comentarios")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ComentarioController {
 
     private final ComentarioService service;

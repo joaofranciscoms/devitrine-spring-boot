@@ -17,11 +17,11 @@
                 <div class="post-content">
                     <p>{{ post.conteudo }}</p>
                 </div>
-            }
 
-            <div>
-                <button class="secundary-btn">Comentar</button>
-            </div>
+                <div>
+                    <button class="secondary-btn" (click)="comentar(post.id)">Comentar</button>
+                </div>
+            }
         </div>
     </div>
 </main>
