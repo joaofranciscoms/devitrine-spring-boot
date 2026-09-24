@@ -1,0 +1,32 @@
+<header class="header">
+    <h1>Publicações</h1>
+
+    <div class="user-area">
+        <span class="user-name">Olá, Usuário</span>
+    </div>
+</header>
+
+<main class="content">
+    <div class="card">
+        <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
+            <div class="form-group">
+                <label for="nome">Comentário: *</label>
+                <textarea formControlName="conteudo" type="text" name="conteudo" id="conteudo" placeholder="Escreva Seu Comentário Aqui"></textarea>
+                
+                @if(form.controls.conteudo.hasError('required') && form.controls.conteudo.touched){
+                    <span class="form-hint form-hint-error">
+                        O conteúdo do comentário é obrigatório.
+                    </span>
+                }
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="secundary-btn comment">Comentar</button>
+                <button type="button" class="secundary-btn comment" [routerLink]="['/paginas/conteudo-post']" [queryParams]="{ id: idPost }">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+
+    </div>
+</main>
