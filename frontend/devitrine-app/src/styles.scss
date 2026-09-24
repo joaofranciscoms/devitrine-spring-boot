@@ -238,7 +238,7 @@ body {
     margin-right: 5px;
 }
 
-.comment-card {
+.post-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-hairline);
     border-radius: var(--radius-sm);
@@ -283,4 +283,69 @@ body {
   font-family: var(--font-ui);
   font-size: 14px;
   resize: vertical;
+}
+
+.comentario {
+    margin-top: 20px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+}
+
+.card-full-comentario {
+
+    margin-top: 20px;
+
+  .datatable-comentario {
+    display: block;
+    width: 100%;
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; // cada cartão tem só a largura necessária
+      gap: 12px;
+    }
+
+    tr {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: fit-content;          // só o necessário
+      min-width: 160px;            // evita cartões minúsculos
+      max-width: min(100%, 640px); // limite para textos longos
+      padding: 10px 16px 12px;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      transition: box-shadow 0.15s ease;
+
+      &:hover {
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    td {
+      display: block;
+      padding: 0;
+      border: none;
+    }
+
+    .comentario-data {
+      color: #888;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .comentario-conteudo {
+      color: #333;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      white-space: pre-line;
+    }
+  }
 }

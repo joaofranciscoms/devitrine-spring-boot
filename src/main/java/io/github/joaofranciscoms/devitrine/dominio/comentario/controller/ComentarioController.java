@@ -42,11 +42,12 @@ public class ComentarioController {
 
     @GetMapping
     public Page<ComentarioDetalhesDTO> listarComentarios(
+            @RequestParam UUID postId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size)
     {
         var pageRequest = PageRequest.of(page, size);
-        return service.list(pageRequest);
+        return service.list(postId, pageRequest);
     }
 
     @DeleteMapping("{id}")

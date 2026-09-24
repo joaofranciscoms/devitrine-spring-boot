@@ -8,7 +8,7 @@
 
 <main class="content">
     <div class="card-full">
-        <div class="comment-card">
+        <div class="post-card">
             @if (post$ | async; as post) {
                 <div class="title-date">
                     <h2>{{ post.titulo }}</h2>
@@ -20,6 +20,42 @@
 
                 <div>
                     <button class="secondary-btn" (click)="comentar(post.id)">Comentar</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <br><h4>Comentários</h4>
+
+    <div class="card-full-comentario">
+        <div class="table-card-comentario">
+            @if (listagem$ | async; as listagem) {
+                <table class="datatable-comentario">
+                    <tbody>
+
+                        @for( post of listagem.content; track post.id ){
+                            <tr>
+                                <td class="comentario-data">{{ post.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</td>
+                                <td class="comentario-conteudo">{{ post.conteudo }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="table-footer">
+                    <span>Mostrando {{ registroInicial(listagem) }} - {{ registroFinal(listagem) }} 
+                        de {{ listagem.totalElements }} Registros
+                    </span>
+
+                    <div class="pagination">
+                        @for (pagina of paginas(listagem.totalPages); track pagina){
+                            <button class="page-btn"
+                                    [class.active]="pagina === listagem.number"
+                                    (click)="navegar(pagina)">
+                                {{ pagina + 1 }}
+                            </button>
+                        }
+                    </div>
                 </div>
             }
         </div>

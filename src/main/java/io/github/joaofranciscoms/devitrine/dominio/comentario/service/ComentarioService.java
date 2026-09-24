@@ -48,8 +48,8 @@ public class ComentarioService {
         comentarioRepository.save(entity);
     }
 
-    public Page<ComentarioDetalhesDTO> list(PageRequest pageRequest){
-        return comentarioRepository.findAll(pageRequest).map(comentarioDetalhesMapper::toDTO);
+    public Page<ComentarioDetalhesDTO> list(UUID postId, PageRequest pageRequest) {
+        return comentarioRepository.findByPostId(postId, pageRequest).map(comentarioDetalhesMapper::toDTO);
     }
 
     public void delete(UUID id){
