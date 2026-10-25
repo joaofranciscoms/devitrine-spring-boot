@@ -3,6 +3,7 @@ package io.github.joaofranciscoms.devitrine.dominio.post.controller;
 import io.github.joaofranciscoms.devitrine.dominio.post.dto.PostDTO;
 import io.github.joaofranciscoms.devitrine.dominio.post.dto.PostDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.post.service.PostService;
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,8 +22,11 @@ public class PostController {
     private final PostService service;
 
     @PostMapping
-    public ResponseEntity<Object> salvarPost(@RequestBody PostDTO dto){
-        PostDetalhesDTO postDetalhesDTO = service.save(dto);
+    public ResponseEntity<Object> salvarPost(
+            @RequestBody PostDTO dto,
+            @RequestAttribute("usuarioAutenticado") Usuario usuario) {
+
+        PostDetalhesDTO postDetalhesDTO = service.save(dto, usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(postDetalhesDTO);
     }
 

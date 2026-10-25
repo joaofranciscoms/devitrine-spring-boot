@@ -4,4 +4,5 @@ export class DetalhesPost {
     conteudo!: string;
     dataPostagem!: Date;
     dataAtualizacao!: Date;
+    autorNome!: string;
 }

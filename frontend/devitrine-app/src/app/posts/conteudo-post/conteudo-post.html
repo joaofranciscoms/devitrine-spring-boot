@@ -1,18 +1,11 @@
-<header class="header">
-    <h1>Publicações</h1>
-
-    <div class="user-area">
-        <span class="user-name">Olá, Usuário</span>
-    </div>
-</header>
-
 <main class="content">
     <div class="card-full">
         <div class="post-card">
             @if (post$ | async; as post) {
                 <div class="title-date">
+                    <p>Autor: {{ post.autorNome }}</p>
                     <h2>{{ post.titulo }}</h2>
-                    <p>{{ post.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</p>
+                    <p>Data: {{ post.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</p>
                 </div>
                 <div class="post-content">
                     <p>{{ post.conteudo }}</p>
@@ -33,10 +26,11 @@
                 <table class="datatable-comentario">
                     <tbody>
 
-                        @for( post of listagem.content; track post.id ){
+                        @for( comentario of listagem.content; track comentario.id ){
                             <tr>
-                                <td class="comentario-data">{{ post.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</td>
-                                <td class="comentario-conteudo">{{ post.conteudo }}</td>
+                                <td class="comentario-autor">{{ comentario.autorNome }}</td>
+                                <td class="comentario-data">{{ comentario.dataPostagem| date:'dd/MM/yyyy HH:mm' }}</td>
+                                <td class="comentario-conteudo">{{ comentario.conteudo }}</td>
                             </tr>
                         }
                     </tbody>

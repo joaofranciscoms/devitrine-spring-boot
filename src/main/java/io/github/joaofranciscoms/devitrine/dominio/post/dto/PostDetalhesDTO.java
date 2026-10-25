@@ -7,6 +7,7 @@ public record PostDetalhesDTO(
         String titulo,
         String conteudo,
         LocalDateTime dataPostagem,
-        LocalDateTime dataAtualizacao
+        LocalDateTime dataAtualizacao,
+        String autorNome
 ) {
 }

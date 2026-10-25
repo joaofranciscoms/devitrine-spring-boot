@@ -275,14 +275,14 @@ body {
 }
 
 .form-group textarea {
-  width: 100%;
-  height: 120px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-family: var(--font-ui);
-  font-size: 14px;
-  resize: vertical;
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    resize: vertical;
 }
 
 .comentario {
@@ -333,6 +333,12 @@ body {
       border: none;
     }
 
+    .comentario-autor {
+      color: #888;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
     .comentario-data {
       color: #888;
       font-size: 0.75rem;
@@ -349,3 +355,190 @@ body {
     }
   }
 }
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: var(--color-bg);
+    font-family: var(--font-ui);
+    color: var(--color-ink);
+}
+
+.auth-panel {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: 12px;
+    padding: 36px 32px 32px;
+    box-shadow:
+        0 1px 2px color-mix(in srgb, var(--color-ink) 6%, transparent),
+        0 12px 32px color-mix(in srgb, var(--color-ink) 8%, transparent);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--color-ink);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+}
+
+.mode-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 4px;
+    margin-bottom: 28px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-hairline);
+    border-radius: 10px;
+}
+
+.mode-switch button {
+    border: 1px solid transparent;
+    background-color: transparent;
+    color: color-mix(in srgb, var(--color-ink) 60%, var(--color-surface));
+    border-radius: 7px;
+    height: 40px;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mode-switch button:hover:not(.active) {
+    color: var(--color-ink);
+    background-color: color-mix(in srgb, var(--color-ink) 5%, transparent);
+}
+
+.mode-switch button:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+}
+
+.mode-switch button.active {
+    background-color: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-surface);
+    box-shadow: 0 2px 6px color-mix(in srgb, var(--color-ink) 25%, transparent);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: 12px;
+    height: 44px;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.auth-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.auth-form label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-ink);
+    letter-spacing: 0.01em;
+}
+
+.auth-form input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.auth-form input:hover {
+    border-color: color-mix(in srgb, var(--color-ink) 35%, var(--color-hairline));
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+.auth-form input.ng-invalid.ng-touched {
+    border-color: var(--color-danger, #b3261e);
+}
+
+.auth-form input.ng-invalid.ng-touched:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger, #b3261e) 18%, transparent);
+}
+
+.auth-form .form-hint-error {
+    font-size: 12.5px;
+    color: var(--color-danger, #b3261e);
+}
+
+.auth-form .auth-submit {
+    width: 100%;
+    height: 46px;
+    margin-top: 8px;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--color-surface);
+    background-color: var(--color-ink);
+    border: 1px solid var(--color-ink);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.auth-form .auth-submit:hover {
+    background-color: color-mix(in srgb, var(--color-ink) 85%, var(--color-surface));
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--color-ink) 22%, transparent);
+}
+
+.auth-form .auth-submit:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.auth-form .auth-submit:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+}
+
+.auth-form .auth-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.menu-item {
+    padding: 5px;
+
+    span {
+        cursor: pointer;
+    }
+}
+

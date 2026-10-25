@@ -1,4 +1,4 @@
-package io.github.joaofranciscoms.devitrine.common;
+package io.github.joaofranciscoms.devitrine.common.exceptions;
 
 public class ComentarioNaoEncontradoException extends RuntimeException {
     public ComentarioNaoEncontradoException() {
