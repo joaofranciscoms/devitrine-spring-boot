@@ -1,7 +1,7 @@
 package io.github.joaofranciscoms.devitrine.dominio.comentario.service;
 
-import io.github.joaofranciscoms.devitrine.common.ComentarioNaoEncontradoException;
-import io.github.joaofranciscoms.devitrine.common.PostNaoEncontradoException;
+import io.github.joaofranciscoms.devitrine.common.exceptions.ComentarioNaoEncontradoException;
+import io.github.joaofranciscoms.devitrine.common.exceptions.PostNaoEncontradoException;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.dto.ComentarioDTO;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.dto.ComentarioDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.mapper.ComentarioDetalhesMapper;
@@ -10,7 +10,7 @@ import io.github.joaofranciscoms.devitrine.dominio.comentario.model.Comentario;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.repository.ComentarioRepository;
 import io.github.joaofranciscoms.devitrine.dominio.post.model.Post;
 import io.github.joaofranciscoms.devitrine.dominio.post.repository.PostRepository;
-import jakarta.persistence.EntityNotFoundException;
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,13 +27,13 @@ public class ComentarioService {
     private final ComentarioMapper comentarioMapper;
     private final ComentarioDetalhesMapper comentarioDetalhesMapper;
 
-    public ComentarioDetalhesDTO save(ComentarioDTO dto){
+    public ComentarioDetalhesDTO save(ComentarioDTO dto, Usuario autor){
         Post post = postRepository.findById(dto.idPost())
                 .orElseThrow(() -> new PostNaoEncontradoException());
 
         Comentario entity = comentarioMapper.toEntity(dto);
+        entity.setAutor(autor);
         entity.setPost(post);
-
         comentarioRepository.save(entity);
         return comentarioDetalhesMapper.toDTO(entity);
     }

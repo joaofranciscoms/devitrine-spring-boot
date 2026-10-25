@@ -1,7 +1,10 @@
 package io.github.joaofranciscoms.devitrine.dominio.post.model;
 
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -32,4 +35,10 @@ public class Post {
     @Column(name = "data_atualizacao")
     @LastModifiedDate
     private LocalDateTime dataAtualizacao;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "autor_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Usuario autor;
 }

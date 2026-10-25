@@ -1,12 +1,13 @@
 package io.github.joaofranciscoms.devitrine.dominio.post.service;
 
-import io.github.joaofranciscoms.devitrine.common.PostNaoEncontradoException;
+import io.github.joaofranciscoms.devitrine.common.exceptions.PostNaoEncontradoException;
 import io.github.joaofranciscoms.devitrine.dominio.post.dto.PostDTO;
 import io.github.joaofranciscoms.devitrine.dominio.post.dto.PostDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.post.mapper.PostDetalhesMapper;
 import io.github.joaofranciscoms.devitrine.dominio.post.mapper.PostMapper;
 import io.github.joaofranciscoms.devitrine.dominio.post.model.Post;
 import io.github.joaofranciscoms.devitrine.dominio.post.repository.PostRepository;
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,10 +23,11 @@ public class PostService {
     private final PostMapper postMapper;
     private final PostDetalhesMapper postDetalhesMapper;
 
-    public PostDetalhesDTO save(PostDTO dto){
+    public PostDetalhesDTO save(PostDTO dto, Usuario autor) {
         Post entity = postMapper.toEntity(dto);
-        repository.save(entity);
-        return postDetalhesMapper.toDTO(entity);
+        entity.setAutor(autor);
+        Post salvo = repository.save(entity);
+        return postDetalhesMapper.toDTO(salvo);
     }
 
     public PostDetalhesDTO findById(UUID id){

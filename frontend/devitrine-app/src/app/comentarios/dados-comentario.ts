@@ -8,4 +8,5 @@ export class DetalhesComentario {
     conteudo!: string;
     dataPostagem!: Date;
     dataAtualizacao!: Date;
+    autorNome!: string;
 }

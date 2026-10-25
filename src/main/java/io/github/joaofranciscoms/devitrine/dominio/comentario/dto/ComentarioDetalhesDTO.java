@@ -6,6 +6,7 @@ public record ComentarioDetalhesDTO(
         String id,
         String conteudo,
         LocalDateTime dataPostagem,
-        LocalDateTime dataAtualizacao
+        LocalDateTime dataAtualizacao,
+        String autorNome
 ) {
 }

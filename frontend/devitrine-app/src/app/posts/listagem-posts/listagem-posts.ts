@@ -5,10 +5,11 @@ import { PageResult } from '../../common/pagination/page-result';
 import { DetalhesPost } from '../dados-post';
 import { CommonModule } from '@angular/common';
 import { Router} from '@angular/router';
+import { Header } from '../../common/components/header/header';
 
 @Component({
   selector: 'app-listagem-cartoes',
-  imports: [CommonModule],
+  imports: [CommonModule, Header],
   templateUrl: './listagem-posts.html',
   styleUrl: './listagem-posts.scss',
 })

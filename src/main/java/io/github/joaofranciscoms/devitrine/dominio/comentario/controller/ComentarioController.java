@@ -3,6 +3,7 @@ package io.github.joaofranciscoms.devitrine.dominio.comentario.controller;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.dto.ComentarioDTO;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.dto.ComentarioDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.comentario.service.ComentarioService;
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,8 +22,8 @@ public class ComentarioController {
     private final ComentarioService service;
 
     @PostMapping
-    public ResponseEntity<Object> salvarComentario(@RequestBody ComentarioDTO dto){
-        ComentarioDetalhesDTO comentarioDetalhesDTO = service.save(dto);
+    public ResponseEntity<Object> salvarComentario(@RequestBody ComentarioDTO dto, @RequestAttribute("usuarioAutenticado") Usuario usuario){
+        ComentarioDetalhesDTO comentarioDetalhesDTO = service.save(dto, usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(comentarioDetalhesDTO);
     }
 

@@ -1,8 +1,10 @@
 package io.github.joaofranciscoms.devitrine.dominio.comentario.model;
 
 import io.github.joaofranciscoms.devitrine.dominio.post.model.Post;
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -36,4 +38,10 @@ public class Comentario {
     @ManyToOne
     @ToString.Exclude
     private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "autor_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Usuario autor;
 }
