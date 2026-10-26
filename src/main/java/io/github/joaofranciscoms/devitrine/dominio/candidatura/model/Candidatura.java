@@ -25,9 +25,6 @@ public class Candidatura {
     @Column(name = "conteudo", nullable = false, columnDefinition = "TEXT")
     private String mensagem;
 
-    @Column(name = "numero_candidator")
-    private int numeroCandidatos;
-
     @Column(name = "data_postagem")
     @CreatedDate
     private LocalDateTime dataCriacao;

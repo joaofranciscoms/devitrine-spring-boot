@@ -1,3 +1,8 @@
+export class DadosPostForm {
+    titulo!: string;
+    conteudo!: string;
+}
+
 export class DetalhesPost {
     id!: string;
     titulo!: string;

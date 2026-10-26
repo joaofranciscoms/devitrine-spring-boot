@@ -541,3 +541,17 @@ body {
         cursor: pointer;
     }
 }
+
+.form-group {
+    
+    input {
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    textarea {
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+}

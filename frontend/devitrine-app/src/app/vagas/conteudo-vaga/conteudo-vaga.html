@@ -1,0 +1,21 @@
+<main class="content">
+    <div class="card-full">
+        <div class="post-card">
+            @if (vaga$ | async; as vaga) {
+                <div class="title-date">
+                    <p>Autor: {{ vaga.autorNome }}</p>
+                    <h2>{{ vaga.titulo }}</h2>
+                    <p>Data: {{ vaga.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</p>
+                </div>
+                <div class="post-content">
+                    <p>Descrição</p>
+                    <p>{{ vaga.conteudo }}</p>
+                </div>
+                <div class="post-content">
+                    <p>Requisitos</p>
+                    <p>{{ vaga.requisitos }}</p>
+                </div>
+            }
+        </div>
+    </div>
+</main>

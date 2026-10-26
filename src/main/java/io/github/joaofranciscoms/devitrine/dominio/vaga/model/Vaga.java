@@ -31,6 +31,9 @@ public class Vaga {
     @Column(name = "requisitos", nullable = false, columnDefinition = "TEXT")
     private String requisitos;
 
+    @Column(name = "numero_candidator")
+    private int numeroCandidatos;
+
     @Column(name = "data_postagem")
     @CreatedDate
     private LocalDateTime dataPostagem;

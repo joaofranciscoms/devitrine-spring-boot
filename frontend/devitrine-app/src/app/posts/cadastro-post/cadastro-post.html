@@ -1,0 +1,35 @@
+<app-header titulo="Post"></app-header>
+<main class="content">
+    <div class="card card-post">
+        <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
+            <div class="form-group">
+                <label for="titulo">Título: *</label>
+                <input formControlName="titulo" type="text" name="titulo" id="titulo" placeholder="Digite o título do post">
+
+                @if (form.controls.titulo.hasError('required') && form.controls.titulo.touched) {
+                    <span class="form-hint form-hint-error">
+                        O título do post é obrigatório.
+                    </span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="conteudo">Conteúdo: *</label>
+                <textarea formControlName="conteudo" name="conteudo" id="conteudo" placeholder="Escreva o conteúdo do post"></textarea>
+
+                @if (form.controls.conteudo.hasError('required') && form.controls.conteudo.touched) {
+                    <span class="form-hint form-hint-error">
+                        O conteúdo do post é obrigatório.
+                    </span>
+                }
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="secundary-btn comment">Publicar</button>
+                <button type="button" class="secundary-btn comment" [routerLink]="['/paginas/listagem-posts']">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+</main>

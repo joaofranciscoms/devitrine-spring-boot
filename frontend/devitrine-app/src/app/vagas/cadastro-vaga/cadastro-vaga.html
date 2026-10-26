@@ -1,0 +1,46 @@
+<app-header titulo="Vagas"></app-header>
+<main class="content">
+    <div class="card card-post">
+        <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
+            <div class="form-group">
+                <label for="titulo">Título: *</label>
+                <input formControlName="titulo" type="text" name="titulo" id="titulo" placeholder="Digite o título da vaga">
+
+                @if (form.controls.titulo.hasError('required') && form.controls.titulo.touched) {
+                    <span class="form-hint form-hint-error">
+                        O título da vaga é obrigatório.
+                    </span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="conteudo">Conteúdo: *</label>
+                <textarea formControlName="conteudo" name="conteudo" id="conteudo" placeholder="Escreva o conteúdo da vaga"></textarea>
+
+                @if (form.controls.conteudo.hasError('required') && form.controls.conteudo.touched) {
+                    <span class="form-hint form-hint-error">
+                        O conteúdo da vaga é obrigatório.
+                    </span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="requisitos">Requisitos: *</label>
+                <textarea formControlName="requisitos" name="requisitos" id="requisitos" placeholder="Escreva os requisitos"></textarea>
+
+                @if (form.controls.requisitos.hasError('required') && form.controls.requisitos.touched) {
+                    <span class="form-hint form-hint-error">
+                        Os requisitos da vaga são obrigatórios.
+                    </span>
+                }
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="secundary-btn comment">Publicar</button>
+                <button type="button" class="secundary-btn comment" [routerLink]="['/paginas/listagem-vagas']">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+</main>

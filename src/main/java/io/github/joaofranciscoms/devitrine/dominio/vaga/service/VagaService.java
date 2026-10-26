@@ -1,6 +1,7 @@
 package io.github.joaofranciscoms.devitrine.dominio.vaga.service;
 
 import io.github.joaofranciscoms.devitrine.common.exceptions.PostNaoEncontradoException;
+import io.github.joaofranciscoms.devitrine.common.exceptions.VagaNaoEncontradaException;
 import io.github.joaofranciscoms.devitrine.dominio.post.dto.PostDTO;
 import io.github.joaofranciscoms.devitrine.dominio.post.dto.PostDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.post.mapper.PostDetalhesMapper;
@@ -34,6 +35,10 @@ public class VagaService {
         entity.setAutor(autor);
         Vaga salvo = repository.save(entity);
         return vagaDetalhesMapper.toDTO(salvo);
+    }
+
+    public VagaDetalhesDTO findById(UUID id){
+        return repository.findById(id).map(vagaDetalhesMapper::toDTO).orElseThrow(() -> new VagaNaoEncontradaException());
     }
 
     public Page<VagaDetalhesDTO> list(PageRequest pageRequest){

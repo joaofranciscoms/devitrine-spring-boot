@@ -5,6 +5,10 @@ import { ConteudoPost } from './posts/conteudo-post/conteudo-post';
 import { ComentarioPost } from './comentarios/comentario-post/comentario-post';
 import { Login } from './auth/login/login';
 import { authGuard } from './auth/auth-guard';
+import { CadastroPost } from './posts/cadastro-post/cadastro-post';
+import { ListagemVagas } from './vagas/listagem-vagas/listagem-vagas';
+import { ConteudoVaga } from './vagas/conteudo-vaga/conteudo-vaga';
+import { CadastroVaga } from './vagas/cadastro-vaga/cadastro-vaga';
 
 export const routes: Routes = [
     {
@@ -33,6 +37,22 @@ export const routes: Routes = [
             {
                 path: 'comentario-post',
                 component: ComentarioPost
+            },
+            {
+                path: 'cadastro-post',
+                component: CadastroPost
+            },
+            {
+                path: 'listagem-vagas',
+                component: ListagemVagas
+            },
+            {
+                path: 'conteudo-vaga',
+                component: ConteudoVaga
+            },
+            {
+                path: 'cadastro-vaga',
+                component: CadastroVaga
             }
         ]
     }

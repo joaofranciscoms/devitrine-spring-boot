@@ -25,6 +25,10 @@ export class ListagemPosts implements OnInit {
     this.listarPosts();
   }
 
+  criarPost() {
+    this.router.navigate(['paginas/cadastro-post']);
+  }
+
   listarPosts(){
     this.listagem$ = this.service.listar(this.paginaAtual, this.tamanhoPagina);
   }

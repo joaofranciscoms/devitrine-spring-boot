@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/vagas")
 @RequiredArgsConstructor
@@ -26,6 +28,13 @@ public class VagaController {
 
         VagaDetalhesDTO vagaDetalhesDTO = service.save(dto, usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(vagaDetalhesDTO);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Object> obterDetalhes(@PathVariable("id") String id){
+        var idVaga = UUID.fromString(id);
+        var result = service.findById(idVaga);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping
