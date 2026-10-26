@@ -11,5 +11,4 @@ public class DevitrineApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DevitrineApplication.class, args);
 	}
-
 }
