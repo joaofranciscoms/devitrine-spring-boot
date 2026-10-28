@@ -1,0 +1,67 @@
+<app-header titulo="Projetos"></app-header>
+<main class="content">
+    <div class="card card-post">
+        <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
+            <div class="form-group">
+                <label for="tipo">Tipo: *</label>
+                <select formControlName="tipo" name="tipo" id="tipo">
+                    <option value="" disabled>Selecione o tipo de publicação</option>
+                    @for (tipo of tipos; track tipo.valor) {
+                        <option [value]="tipo.valor">{{ tipo.descricao }}</option>
+                    }
+                </select>
+
+                @if (form.controls.tipo.hasError('required') && form.controls.tipo.touched) {
+                    <span class="form-hint form-hint-error">
+                        O tipo do projeto é obrigatório.
+                    </span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="titulo">Título: *</label>
+                <input formControlName="titulo" type="text" name="titulo" id="titulo" placeholder="Digite o título do projeto ou artigo">
+
+                @if (form.controls.titulo.hasError('required') && form.controls.titulo.touched) {
+                    <span class="form-hint form-hint-error">
+                        O título do projeto é obrigatório.
+                    </span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição: *</label>
+                <textarea formControlName="descricao" name="descricao" id="descricao" placeholder="Descreva o projeto ou o resumo do artigo"></textarea>
+
+                @if (form.controls.descricao.hasError('required') && form.controls.descricao.touched) {
+                    <span class="form-hint form-hint-error">
+                        A descrição do projeto é obrigatória.
+                    </span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="tecnologias">Tecnologias: *</label>
+                <input formControlName="tecnologias" type="text" name="tecnologias" id="tecnologias" placeholder="Ex.: Java, Spring Boot, Angular">
+
+                @if (form.controls.tecnologias.hasError('required') && form.controls.tecnologias.touched) {
+                    <span class="form-hint form-hint-error">
+                        Informe ao menos uma tecnologia.
+                    </span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="link">Link (repositório, DOI ou artigo):</label>
+                <input formControlName="link" type="text" name="link" id="link" placeholder="https://">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="secundary-btn comment">Publicar</button>
+                <button type="button" class="secundary-btn comment" [routerLink]="['/paginas/listagem-projetos']">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+</main>

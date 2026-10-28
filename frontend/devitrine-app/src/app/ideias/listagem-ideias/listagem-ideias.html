@@ -1,0 +1,49 @@
+<app-header titulo="Ideias"></app-header>
+<main class="content">
+    <div class="card-full">
+        <div class="table-card">
+            @if (listagem$ | async; as listagem) {
+                <table class="datatable">
+                    <thead>
+                        <tr>
+                            <th>Título da Ideia</th>
+                            <th>Autor</th>
+                            <th>Data da Publicação</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @for (ideia of listagem.content; track ideia.id) {
+                            <tr>
+                                <td class="post-title" (click)="visualizarIdeia(ideia.id)">{{ ideia.titulo }}</td>
+                                <td>{{ ideia.autorNome }}</td>
+                                <td>{{ ideia.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</td>
+                                <td class="visualize-btn" (click)="visualizarIdeia(ideia.id)">Visualizar</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="table-footer">
+                    <span>Mostrando {{ registroInicial(listagem) }} - {{ registroFinal(listagem) }}
+                        de {{ listagem.totalElements }} Registros
+                    </span>
+
+                    <div class="pagination">
+                        @for (pagina of paginas(listagem.totalPages); track pagina) {
+                            <button class="page-btn"
+                                    [class.active]="pagina === listagem.number"
+                                    (click)="navegar(pagina)">
+                                {{ pagina + 1 }}
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div>
+            <button class="secondary-btn" (click)="criarIdeia()">Compartilhar Nova Ideia</button>
+        </div>
+    </div>
+</main>

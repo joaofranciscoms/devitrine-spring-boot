@@ -1,0 +1,32 @@
+<main class="content">
+    <div class="card-full">
+        <div class="post-card">
+            @if (projeto$ | async; as projeto) {
+                <div class="title-date">
+                    <p>Autor: {{ projeto.autorNome }}</p>
+                    <h2>{{ projeto.titulo }}</h2>
+                    <p>Data: {{ projeto.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</p>
+                </div>
+                <div class="post-content">
+                    <p>Tipo: {{ descricaoTipo(projeto.tipo) }}</p>
+                </div>
+                <div class="post-content">
+                    <p>Descrição</p>
+                    <p>{{ projeto.descricao }}</p>
+                </div>
+                <div class="post-content">
+                    <p>Tecnologias</p>
+                    @for (tecnologia of projeto.tecnologias; track tecnologia) {
+                        <span class="tag">{{ tecnologia }}</span>
+                    }
+                </div>
+                @if (projeto.link) {
+                    <div class="post-content">
+                        <p>Link</p>
+                        <a [href]="projeto.link" target="_blank" rel="noopener noreferrer">{{ projeto.link }}</a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</main>

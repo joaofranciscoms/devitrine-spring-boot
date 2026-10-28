@@ -1,0 +1,57 @@
+<main class="content">
+    <div class="card-full">
+        <div class="post-card">
+            @if (ideia$ | async; as ideia) {
+                <div class="title-date">
+                    <p>Autor: {{ ideia.autorNome }}</p>
+                    <h2>{{ ideia.titulo }}</h2>
+                    <p>Data: {{ ideia.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</p>
+                </div>
+                <div class="post-content">
+                    <p>{{ ideia.descricao }}</p>
+                </div>
+
+                <div>
+                    <button class="secondary-btn" (click)="colaborar(ideia.id)">Colaborar</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <br><h4>Colaborações</h4>
+
+    <div class="card-full-comentario">
+        <div class="table-card-comentario">
+            @if (listagem$ | async; as listagem) {
+                <table class="datatable-comentario">
+                    <tbody>
+
+                        @for( colaboracao of listagem.content; track colaboracao.id ){
+                            <tr>
+                                <td class="comentario-autor">{{ colaboracao.autorNome }}</td>
+                                <td class="comentario-data">{{ colaboracao.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</td>
+                                <td class="comentario-conteudo">{{ colaboracao.conteudo }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="table-footer">
+                    <span>Mostrando {{ registroInicial(listagem) }} - {{ registroFinal(listagem) }}
+                        de {{ listagem.totalElements }} Registros
+                    </span>
+
+                    <div class="pagination">
+                        @for (pagina of paginas(listagem.totalPages); track pagina){
+                            <button class="page-btn"
+                                    [class.active]="pagina === listagem.number"
+                                    (click)="navegar(pagina)">
+                                {{ pagina + 1 }}
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>

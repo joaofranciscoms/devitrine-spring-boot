@@ -1,7 +1,9 @@
 package io.github.joaofranciscoms.devitrine.infra.handlers;
 
 import io.github.joaofranciscoms.devitrine.common.exceptions.ComentarioNaoEncontradoException;
+import io.github.joaofranciscoms.devitrine.common.exceptions.IdeiaNaoEncontradaException;
 import io.github.joaofranciscoms.devitrine.common.exceptions.PostNaoEncontradoException;
+import io.github.joaofranciscoms.devitrine.common.exceptions.ProjetoNaoEncontradoException;
 import io.github.joaofranciscoms.devitrine.common.exceptions.UnauthorizedException;
 import io.github.joaofranciscoms.devitrine.common.exceptions.ValidationException;
 import io.github.joaofranciscoms.devitrine.common.validation.CampoInvalido;
@@ -68,6 +70,34 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PostNaoEncontradoException.class)
     public ResponseEntity<?> handleRegistroNaoEncontradoException(
             PostNaoEncontradoException e){
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", HttpStatus.NOT_FOUND.value(),
+                        "error", e.getMessage(),
+                        "message", e.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(ProjetoNaoEncontradoException.class)
+    public ResponseEntity<?> handleRegistroNaoEncontradoException(
+            ProjetoNaoEncontradoException e){
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", HttpStatus.NOT_FOUND.value(),
+                        "error", e.getMessage(),
+                        "message", e.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(IdeiaNaoEncontradaException.class)
+    public ResponseEntity<?> handleRegistroNaoEncontradoException(
+            IdeiaNaoEncontradaException e){
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
