@@ -6,6 +6,7 @@ import { VagaService } from '../vaga-service';
 import { PageResult } from '../../common/pagination/page-result';
 import { DetalhesVaga } from '../dados-vaga';
 import { Header } from '../../common/components/header/header';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-listagem-vagas',
@@ -16,6 +17,7 @@ import { Header } from '../../common/components/header/header';
 export class ListagemVagas implements OnInit {
   router = inject(Router);
   service = inject(VagaService);
+  auth = inject(AuthService)
 
   listagem$!: Observable<PageResult<DetalhesVaga>>;
   paginaAtual = 0;

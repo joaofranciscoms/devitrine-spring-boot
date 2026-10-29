@@ -3,7 +3,10 @@ package io.github.joaofranciscoms.devitrine.dominio.candidatura.controller;
 import io.github.joaofranciscoms.devitrine.dominio.candidatura.dto.CandidaturaDTO;
 import io.github.joaofranciscoms.devitrine.dominio.candidatura.dto.CandidaturaDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.candidatura.service.CandidaturaService;
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.TipoUsuario;
 import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
+import io.github.joaofranciscoms.devitrine.infra.security.ApenasTipo;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,12 +23,12 @@ public class CandidaturaController {
     private final CandidaturaService service;
 
     @PostMapping
-    public ResponseEntity<Object> salvarCandidatura(
-            @RequestBody CandidaturaDTO dto,
+    @ApenasTipo({TipoUsuario.PESQUISADOR, TipoUsuario.DESENVOLVEDOR})
+    public ResponseEntity<CandidaturaDetalhesDTO> salvarCandidatura(
+            @RequestBody @Valid CandidaturaDTO dto,
             @RequestAttribute("usuarioAutenticado") Usuario usuario) {
 
-        CandidaturaDetalhesDTO candidaturaDetalhesDTO = service.save(dto, usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(candidaturaDetalhesDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto, usuario));
     }
 
     @GetMapping

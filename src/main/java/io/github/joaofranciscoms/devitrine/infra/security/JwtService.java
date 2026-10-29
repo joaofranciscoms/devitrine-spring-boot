@@ -40,8 +40,8 @@ public class JwtService {
                 """);
 
         String payload = base64Url("""
-                { "sub": "%s", "nome": "%s", "exp": %d }
-                """.formatted(usuario.getId().toString(), usuario.getNome(), expiration));
+                { "sub": "%s", "nome": "%s", "tipo": "%s", "exp": %d }
+                """.formatted(usuario.getId(), usuario.getNome(), usuario.getTipo(), expiration));
 
 
         String signature = assinar(header + "." + payload);

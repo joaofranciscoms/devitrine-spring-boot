@@ -6,8 +6,11 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CadastroUsuarioForm, LoginForm } from '../dados-auth';
 
+export type TipoUsuario = 'EMPRESA' | 'PESQUISADOR' | 'DESENVOLVEDOR';
+
 interface AuthForm {
   nome: FormControl<string>;
+  tipo: FormControl<TipoUsuario | ''>;
   login: FormControl<string>;
   senha: FormControl<string>;
 }
@@ -29,6 +32,7 @@ export class Login implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup<AuthForm>({
+      tipo: new FormControl<TipoUsuario | ''>('', { nonNullable: true }),
       nome: new FormControl<string>('', { nonNullable: true}),
       login: new FormControl<string>('', { nonNullable: true, validators: Validators.required}),
       senha: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.min(6)]}),
@@ -42,13 +46,15 @@ export class Login implements OnInit {
   alterarModo(modo: 'login' | 'cadastro') : void {
     this.modo = modo;
 
-    if(modo === 'cadastro'){
+    if (modo === 'cadastro') {
       this.form.controls.nome.setValidators(Validators.required);
+      this.form.controls.tipo.setValidators(Validators.required);
     } else {
       this.form.controls.nome.clearValidators();
-    }
-
+      this.form.controls.tipo.clearValidators();
+    } 
     this.form.controls.nome.updateValueAndValidity();
+    this.form.controls.tipo.updateValueAndValidity();
   }
 
   handleSubmit() : void {

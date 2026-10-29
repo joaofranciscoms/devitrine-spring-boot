@@ -34,6 +34,7 @@ public class AuthService {
         String senhaCriptografada = encoder.encode(form.senha());
 
         Usuario usuario = new Usuario();
+        usuario.setTipo(form.tipo());
         usuario.setNome(form.nome());
         usuario.setLogin(form.login());
         usuario.setSenha(senhaCriptografada);

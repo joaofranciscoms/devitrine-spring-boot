@@ -14,16 +14,13 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "candidatura")
+@Table(name = "candidatura", uniqueConstraints = @UniqueConstraint(columnNames = {"vaga_id", "autor_id"}))
 @EntityListeners(AuditingEntityListener.class)
 public class Candidatura {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @Column(name = "conteudo", nullable = false, columnDefinition = "TEXT")
-    private String mensagem;
 
     @Column(name = "data_postagem")
     @CreatedDate

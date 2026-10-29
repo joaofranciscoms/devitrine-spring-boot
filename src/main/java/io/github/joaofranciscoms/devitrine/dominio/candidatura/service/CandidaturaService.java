@@ -7,10 +7,15 @@ import io.github.joaofranciscoms.devitrine.dominio.candidatura.mapper.Candidatur
 import io.github.joaofranciscoms.devitrine.dominio.candidatura.model.Candidatura;
 import io.github.joaofranciscoms.devitrine.dominio.candidatura.repository.CandidaturaRepository;
 import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
+import io.github.joaofranciscoms.devitrine.dominio.vaga.model.Vaga;
+import io.github.joaofranciscoms.devitrine.dominio.vaga.repository.VagaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +24,22 @@ public class CandidaturaService {
     private final CandidaturaRepository repository;
     private final CandidaturaMapper candidaturaMapper;
     private final CandidaturaDetalhesMapper candidaturaDetalhesMapper;
+    private final VagaRepository vagaRepository;
 
+    @Transactional
     public CandidaturaDetalhesDTO save(CandidaturaDTO dto, Usuario autor) {
-        Candidatura entity = candidaturaMapper.toEntity(dto);
+        Vaga vaga = vagaRepository.findById(dto.vagaId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vaga não encontrada"));
+
+        if (repository.existsByVagaIdAndAutorId(vaga.getId(), autor.getId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Você já se candidatou a esta vaga");
+        }
+
+        Candidatura entity = new Candidatura();
         entity.setAutor(autor);
-        Candidatura salvo = repository.save(entity);
-        return candidaturaDetalhesMapper.toDTO(salvo);
+        entity.setVaga(vaga);
+
+        return candidaturaDetalhesMapper.toDTO(repository.save(entity));
     }
 
     public Page<CandidaturaDetalhesDTO> list(PageRequest pageRequest){

@@ -8,6 +8,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CandidaturaDetalhesMapper {
 
-    @Mapping(source = "autor.nome", target = "nomeEmpresa")
+    @Mapping(source = "dataCriacao", target = "dataPostagem")
+    @Mapping(source = "autor.nome", target = "nomeCandidato")
+    @Mapping(source = "vaga.autor.nome", target = "nomeEmpresa")
     CandidaturaDetalhesDTO toDTO(Candidatura candidatura);
 }

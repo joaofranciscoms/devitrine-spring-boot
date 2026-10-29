@@ -6,7 +6,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.List;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
@@ -37,6 +40,15 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         Usuario usuario = jwtService.getUsuario(token);
+
+        if (handler instanceof HandlerMethod metodo) {
+            ApenasTipo restricao = metodo.getMethodAnnotation(ApenasTipo.class);
+            if (restricao != null && !List.of(restricao.value()).contains(usuario.getTipo())) {
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                return false;
+            }
+        }
+
         request.setAttribute("usuarioAutenticado", usuario);
         return true;
     }

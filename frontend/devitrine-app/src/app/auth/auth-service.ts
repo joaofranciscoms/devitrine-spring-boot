@@ -4,6 +4,7 @@ import { AuthResponse, CadastroUsuarioForm, LoginForm } from './dados-auth';
 import { Observable, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode'
 import { Router } from '@angular/router';
+import { TipoUsuario } from './login/login';
 
 interface JwtPayload {
   exp?: number;
@@ -136,5 +137,24 @@ export class AuthService {
     } catch {
       return null;
     }
+  }
+
+  get tipoUsuario(): TipoUsuario | null {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      return JSON.parse(atob(base64)).tipo ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  get ehEmpresa(): boolean {
+    return this.tipoUsuario === 'EMPRESA';
+  }
+
+  get podeCandidatar(): boolean {
+    return this.tipoUsuario === 'PESQUISADOR' || this.tipoUsuario === 'DESENVOLVEDOR';
   }
 }

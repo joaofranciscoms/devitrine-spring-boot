@@ -43,8 +43,10 @@
                 </div>
             }
         </div>
-        <div>
-            <button class="secondary-btn" (click)="criarVaga()">Publicar Nova Vaga</button>
-        </div>
+        @if (auth.ehEmpresa) {
+            <div>
+                <button class="secondary-btn" (click)="criarVaga()">Publicar Nova Vaga</button>
+            </div>
+        }
     </div>
 </main>

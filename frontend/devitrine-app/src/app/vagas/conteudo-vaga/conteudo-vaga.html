@@ -15,6 +15,16 @@
                     <p>Requisitos</p>
                     <p>{{ vaga.requisitos }}</p>
                 </div>
+
+                @if (auth.podeCandidatar) {
+                    <div>
+                        <button class="secondary-btn"
+                                (click)="candidatar()"
+                                [disabled]="enviando || candidatou">
+                            {{ candidatou ? 'Candidatura enviada' : 'Candidatar-se' }}
+                        </button>
+                    </div>
+                }
             }
         </div>
     </div>

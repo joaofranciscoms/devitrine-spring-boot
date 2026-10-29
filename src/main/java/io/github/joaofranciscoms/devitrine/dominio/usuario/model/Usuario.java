@@ -14,12 +14,16 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_usuario", nullable = false)
+    private TipoUsuario tipo;
+
+    @Column(name = "nome", nullable = false)
+    private String nome;
+
     @Column(name = "login", unique = true, nullable = false)
     private String login;
 
     @Column(name= "senha", nullable = false)
     private String senha;
-
-    @Column(name = "nome", nullable = false)
-    private String nome;
 }

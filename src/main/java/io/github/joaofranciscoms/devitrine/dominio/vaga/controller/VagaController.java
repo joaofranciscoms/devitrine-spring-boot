@@ -1,9 +1,11 @@
 package io.github.joaofranciscoms.devitrine.dominio.vaga.controller;
 
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.TipoUsuario;
 import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
 import io.github.joaofranciscoms.devitrine.dominio.vaga.dto.VagaDTO;
 import io.github.joaofranciscoms.devitrine.dominio.vaga.dto.VagaDetalhesDTO;
 import io.github.joaofranciscoms.devitrine.dominio.vaga.service.VagaService;
+import io.github.joaofranciscoms.devitrine.infra.security.ApenasTipo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,7 @@ public class VagaController {
     private final VagaService service;
 
     @PostMapping
+    @ApenasTipo(TipoUsuario.EMPRESA)
     public ResponseEntity<Object> salvarVaga(
             @RequestBody VagaDTO dto,
             @RequestAttribute("usuarioAutenticado") Usuario usuario) {
