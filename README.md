@@ -121,7 +121,7 @@ common/
   pagination/        # Modelo de paginacao
 ```
 
-## Autenticacao e perfis de usuario
+## Autenticação e perfis de usuário
 
 A API utiliza autenticacao baseada em token JWT:
 
