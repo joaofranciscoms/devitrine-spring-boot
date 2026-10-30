@@ -334,7 +334,7 @@ npm start
 
 5. Acesse `http://localhost:4200` no navegador.
 
-> O backend precisa estar em execucao para que o frontend consiga listar e criar posts, pois a aplicação consome a API em `http://localhost:8080/api`.
+> O backend precisa estar em execução para que o frontend consiga listar e criar posts, pois a aplicação consome a API em `http://localhost:8080/api`.
 
 ## Solucao de problemas
 
