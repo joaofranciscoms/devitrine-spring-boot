@@ -2,6 +2,12 @@
 
 Plataforma digital voltada para a area de tecnologia, onde desenvolvedores, pesquisadores e empresas podem divulgar conteudos, projetos e oportunidades de trabalho, alem de interagir e colaborar entre si.
 
+# Desenvolvedores
+
+- João Francisco Martins Simão
+- Hugo Rafael Pessoni Batista
+- Pedro Augusto Garcias Santos
+
 ## Sumário
 
 - [Sobre o projeto](#sobre-o-projeto)
