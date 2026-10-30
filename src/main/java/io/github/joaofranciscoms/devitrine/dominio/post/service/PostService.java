@@ -35,7 +35,7 @@ public class PostService {
     }
 
     public void update(UUID id, PostDTO dto){
-        var entity = postMapper.toEntity(dto);
+        var entity = repository.findById(id).orElseThrow(() -> new PostNaoEncontradoException());
         entity.setTitulo(dto.titulo());
         entity.setConteudo(dto.conteudo());
         repository.save(entity);
