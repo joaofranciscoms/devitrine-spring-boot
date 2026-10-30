@@ -2,7 +2,7 @@
 
 Plataforma digital voltada para a area de tecnologia, onde desenvolvedores, pesquisadores e empresas podem divulgar conteudos, projetos e oportunidades de trabalho, alem de interagir e colaborar entre si.
 
-## Sumario
+## Sumário
 
 - [Sobre o projeto](#sobre-o-projeto)
 - [Requisitos funcionais](#requisitos-funcionais)
