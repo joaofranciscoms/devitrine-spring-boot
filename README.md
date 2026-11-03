@@ -266,16 +266,16 @@ O projeto foi pensado para execucao local. Siga os passos abaixo na ordem.
 
 Instale as ferramentas abaixo antes de comecar:
 
-- [Git](https://git-scm.com/)
-- [JDK](https://adoptium.net/) (versao compativel com o projeto, 17 ou superior)
-- [IntelliJ IDEA](https://www.jetbrains.com/idea/) para executar a API
-- [PostgreSQL](https://www.postgresql.org/download/)
-- [Node.js](https://nodejs.org/) (inclui o npm)
-- [Visual Studio Code](https://code.visualstudio.com/) para executar o frontend
+- Git
+- JDK - Versão compatível com o projeto, 17 ou superior)
+- IntelliJ IDEA para executar a API
+- PostgreSQL
+- Node.js
+- Visual Studio Code - Para executar o frontend
 
-Observacao sobre o Angular: nao e necessario instalar o Angular CLI globalmente. O CLI vem como dependencia do projeto e e instalado junto com as demais dependencias ao executar `npm install`, sendo utilizado automaticamente pelo comando `npm start`.
+Observação sobre o Angular: não e necessário instalar o Angular CLI globalmente. O CLI vem como dependência do projeto e é instalado junto com as demais dependências ao executar `npm install`, sendo utilizado automaticamente pelo comando `npm start`.
 
-### Clonando o repositorio
+### Clonando o repositório
 
 ```bash
 git clone https://github.com/joaofranciscoms/devitrine-spring-boot.git
@@ -283,16 +283,16 @@ git clone https://github.com/joaofranciscoms/devitrine-spring-boot.git
 
 ### Configurando o banco de dados
 
-1. Certifique-se de que o PostgreSQL esta em execucao (porta padrao `5432`).
+1. Certifique-se de que o PostgreSQL esta em execução (porta padrão `5432`).
 2. Crie um banco de dados vazio. Pode ser feito pelo pgAdmin ou pelo terminal:
 
 ```sql
 CREATE DATABASE devitrine;
 ```
 
-3. Utilize o usuario e a senha padrao configurados no arquivo `application.yml` do backend (em `src/main/resources`).
+3. Utilize o usuário e a senha padrão configurados no arquivo `application.yml` do backend (em `src/main/resources`).
 
-Caso voce prefira usar outro nome de banco, outro usuario ou outra senha, basta alterar os valores correspondentes no `application.yml`. Exemplo da secao de conexao:
+Caso voce prefira usar outro nome de banco, outro usuário ou outra senha, basta alterar os valores correspondentes no `application.yml`. Exemplo da seção de conexão:
 
 ```yaml
 spring:
@@ -303,9 +303,9 @@ spring:
     driver-class-name: org.postgresql.Driver
 ```
 
-> Confira no arquivo do projeto os valores padrao exatos e mantenha o banco criado com o mesmo nome definido na URL.
+> Confira no arquivo do projeto os valores padrão exatos e mantenha o banco criado com o mesmo nome definido na URL.
 
-Alem da conexao com o banco, o `application.yml` precisa conter as configuracoes do JWT:
+Alem da conexao com o banco, o `application.yml` precisa conter as configurações do JWT:
 
 ```yaml
 app:
@@ -317,8 +317,8 @@ app:
 ### Executando o backend
 
 1. Abra o projeto no IntelliJ IDEA (pasta do backend, onde esta o `pom.xml`).
-2. Aguarde o IntelliJ importar as dependencias do Maven.
-3. Certifique-se de que o Lombok e o processamento de anotacoes estao habilitados. Isso é necessário para o Lombok e o MapStruct.
+2. Aguarde o IntelliJ importar as dependências do Maven.
+3. Certifique-se de que o Lombok e o processamento de anotações estao habilitados. Isso é necessário para o Lombok e o MapStruct.
 4. Execute a classe principal da aplicação (classe anotada com `@SpringBootApplication`).
 5. A API ficara disponivel em `http://localhost:8080`.
 
@@ -326,13 +326,13 @@ app:
 
 1. Abra a pasta do frontend no Visual Studio Code.
 2. Abra o terminal integrado (`Ctrl + '`).
-3. Instale as dependencias (necessario apenas na primeira execucao):
+3. Instale as dependências (necessário apenas na primeira execução):
 
 ```bash
 npm install
 ```
 
-4. Inicie a aplicacao:
+4. Inicie a aplicação:
 
 ```bash
 npm start
