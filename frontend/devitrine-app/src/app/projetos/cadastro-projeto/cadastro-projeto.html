@@ -1,9 +1,14 @@
-<app-header titulo="Projetos"></app-header>
+<app-header titulo="Novo Projeto"></app-header>
 <main class="content">
     <div class="card card-post">
+        <div class="form-header">
+            <h2>Cadastrar Projeto ou Artigo</h2>
+            <p>Adicione seu projeto à vitrine da comunidade e destaque as tecnologias utilizadas.</p>
+        </div>
+
         <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
             <div class="form-group">
-                <label for="tipo">Tipo: *</label>
+                <label for="tipo">Tipo de publicação *</label>
                 <select formControlName="tipo" name="tipo" id="tipo">
                     <option value="" disabled>Selecione o tipo de publicação</option>
                     @for (tipo of tipos; track tipo.valor) {
@@ -19,7 +24,7 @@
             </div>
 
             <div class="form-group">
-                <label for="titulo">Título: *</label>
+                <label for="titulo">Título *</label>
                 <input formControlName="titulo" type="text" name="titulo" id="titulo" placeholder="Digite o título do projeto ou artigo">
 
                 @if (form.controls.titulo.hasError('required') && form.controls.titulo.touched) {
@@ -30,7 +35,7 @@
             </div>
 
             <div class="form-group">
-                <label for="descricao">Descrição: *</label>
+                <label for="descricao">Descrição *</label>
                 <textarea formControlName="descricao" name="descricao" id="descricao" placeholder="Descreva o projeto ou o resumo do artigo"></textarea>
 
                 @if (form.controls.descricao.hasError('required') && form.controls.descricao.touched) {
@@ -41,7 +46,7 @@
             </div>
 
             <div class="form-group">
-                <label for="tecnologias">Tecnologias: *</label>
+                <label for="tecnologias">Tecnologias (separadas por vírgula) *</label>
                 <input formControlName="tecnologias" type="text" name="tecnologias" id="tecnologias" placeholder="Ex.: Java, Spring Boot, Angular">
 
                 @if (form.controls.tecnologias.hasError('required') && form.controls.tecnologias.touched) {
@@ -52,13 +57,15 @@
             </div>
 
             <div class="form-group">
-                <label for="link">Link (repositório, DOI ou artigo):</label>
-                <input formControlName="link" type="text" name="link" id="link" placeholder="https://">
+                <label for="link">Link externo (repositório, DOI ou artigo)</label>
+                <input formControlName="link" type="text" name="link" id="link" placeholder="https://github.com/...">
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="secundary-btn comment">Publicar</button>
-                <button type="button" class="secundary-btn comment" [routerLink]="['/paginas/listagem-projetos']">
+                <button type="submit" class="primary-btn">
+                    <i class="fa-solid fa-check"></i> Publicar Projeto
+                </button>
+                <button type="button" class="btn-outline" [routerLink]="['/paginas/listagem-projetos']">
                     Cancelar
                 </button>
             </div>

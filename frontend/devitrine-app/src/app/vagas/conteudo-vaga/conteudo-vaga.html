@@ -1,31 +1,41 @@
 <main class="content">
-    <div class="card-full">
-        <div class="post-card">
-            @if (vaga$ | async; as vaga) {
-                <div class="title-date">
-                    <p>Autor: {{ vaga.autorNome }}</p>
-                    <h2>{{ vaga.titulo }}</h2>
-                    <p>Data: {{ vaga.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</p>
-                </div>
-                <div class="post-content">
-                    <p>Descrição</p>
-                    <p>{{ vaga.conteudo }}</p>
-                </div>
-                <div class="post-content">
-                    <p>Requisitos</p>
-                    <p>{{ vaga.requisitos }}</p>
-                </div>
+    <button type="button" class="back-btn" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para vagas
+    </button>
 
-                @if (auth.podeCandidatar) {
-                    <div>
-                        <button class="secondary-btn"
-                                (click)="candidatar()"
-                                [disabled]="enviando || candidatou">
-                            {{ candidatou ? 'Candidatura enviada' : 'Candidatar-se' }}
-                        </button>
-                    </div>
-                }
+    <div class="card-full">
+        @if (vaga$ | async; as vaga) {
+            <div class="article-header">
+                <span class="badge-type">
+                    <i class="fa-solid fa-briefcase"></i> Vaga Aberta
+                </span>
+                <h2>{{ vaga.titulo }}</h2>
+                <div class="meta-row">
+                    <span><i class="fa-regular fa-building"></i> Publicado por: <strong>{{ vaga.autorNome }}</strong></span>
+                    <span><i class="fa-regular fa-clock"></i> {{ vaga.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</span>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <div class="section-label"><i class="fa-solid fa-align-left"></i> Descrição da Oportunidade</div>
+                <div class="section-text">{{ vaga.conteudo }}</div>
+            </div>
+
+            <div class="section-box">
+                <div class="section-label"><i class="fa-solid fa-list-check"></i> Requisitos Desejados</div>
+                <div class="section-text">{{ vaga.requisitos }}</div>
+            </div>
+
+            @if (auth.podeCandidatar) {
+                <div style="margin-top: 24px;">
+                    <button class="primary-btn"
+                            (click)="candidatar()"
+                            [disabled]="enviando || candidatou">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        {{ candidatou ? 'Candidatura enviada com sucesso' : 'Candidatar-se a esta vaga' }}
+                    </button>
+                </div>
             }
-        </div>
+        }
     </div>
 </main>

@@ -1,32 +1,42 @@
 <main class="content">
+    <button type="button" class="back-btn" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para projetos
+    </button>
+
     <div class="card-full">
-        <div class="post-card">
-            @if (projeto$ | async; as projeto) {
-                <div class="title-date">
-                    <p>Autor: {{ projeto.autorNome }}</p>
-                    <h2>{{ projeto.titulo }}</h2>
-                    <p>Data: {{ projeto.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</p>
+        @if (projeto$ | async; as projeto) {
+            <div class="article-header">
+                <span class="badge-type">
+                    <i class="fa-solid fa-laptop-code"></i> {{ descricaoTipo(projeto.tipo) }}
+                </span>
+                <h2>{{ projeto.titulo }}</h2>
+                <div class="meta-row">
+                    <span><i class="fa-regular fa-user"></i> Autor: <strong>{{ projeto.autorNome }}</strong></span>
+                    <span><i class="fa-regular fa-clock"></i> {{ projeto.dataPostagem | date:'dd/MM/yyyy HH:mm' }}</span>
                 </div>
-                <div class="post-content">
-                    <p>Tipo: {{ descricaoTipo(projeto.tipo) }}</p>
-                </div>
-                <div class="post-content">
-                    <p>Descrição</p>
-                    <p>{{ projeto.descricao }}</p>
-                </div>
-                <div class="post-content">
-                    <p>Tecnologias</p>
+            </div>
+
+            <div class="section-box">
+                <div class="section-label"><i class="fa-solid fa-circle-info"></i> Sobre o Projeto</div>
+                <div class="section-text">{{ projeto.descricao }}</div>
+            </div>
+
+            <div class="section-box">
+                <div class="section-label"><i class="fa-solid fa-microchip"></i> Tecnologias Utilizadas</div>
+                <div class="card-tags" style="margin-top: 8px;">
                     @for (tecnologia of projeto.tecnologias; track tecnologia) {
                         <span class="tag">{{ tecnologia }}</span>
                     }
                 </div>
-                @if (projeto.link) {
-                    <div class="post-content">
-                        <p>Link</p>
-                        <a [href]="projeto.link" target="_blank" rel="noopener noreferrer">{{ projeto.link }}</a>
-                    </div>
-                }
+            </div>
+
+            @if (projeto.link) {
+                <div style="margin-top: 24px;">
+                    <a class="primary-btn" [href]="projeto.link" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Acessar Repositório / Artigo
+                    </a>
+                </div>
             }
-        </div>
+        }
     </div>
 </main>

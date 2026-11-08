@@ -2,16 +2,23 @@
     <h1>Publicações</h1>
 
     <div class="user-area">
+        <span class="status-dot"></span>
         <span class="user-name">Olá, Usuário</span>
+        <i class="fa-solid fa-circle-user"></i>
     </div>
 </header>
 
 <main class="content">
-    <div class="card">
+    <div class="card card-post">
+        <div class="form-header">
+            <h2>Adicionar Comentário</h2>
+            <p>Participe da discussão com dúvidas, sugestões ou feedbacks.</p>
+        </div>
+
         <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
             <div class="form-group">
-                <label for="nome">Comentário: *</label>
-                <textarea formControlName="conteudo" type="text" name="conteudo" id="conteudo" placeholder="Escreva Seu Comentário Aqui"></textarea>
+                <label for="conteudo">Seu comentário *</label>
+                <textarea formControlName="conteudo" name="conteudo" id="conteudo" placeholder="Escreva seu comentário aqui..."></textarea>
                 
                 @if(form.controls.conteudo.hasError('required') && form.controls.conteudo.touched){
                     <span class="form-hint form-hint-error">
@@ -21,12 +28,13 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="secundary-btn comment">Comentar</button>
-                <button type="button" class="secundary-btn comment" [routerLink]="['/paginas/conteudo-post']" [queryParams]="{ id: idPost }">
+                <button type="submit" class="primary-btn">
+                    <i class="fa-regular fa-paper-plane"></i> Publicar Comentário
+                </button>
+                <button type="button" class="btn-outline" [routerLink]="['/paginas/conteudo-post']" [queryParams]="{ id: idPost }">
                     Cancelar
                 </button>
             </div>
         </form>
-
     </div>
 </main>

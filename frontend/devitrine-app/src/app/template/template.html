@@ -1,24 +1,35 @@
 <div class="app-container">
     <aside class="sidebar">
         <div class="sidebar-logo">
+            <div class="logo-badge">
+                <i class="fa-solid fa-code"></i>
+            </div>
             <span>Devitrine</span>
         </div>
 
         <nav class="sidebar-menu">
+            <span class="menu-label">Comunidade</span>
+
             <a class="menu-item" [routerLink]="['/paginas/listagem-posts']">
+                <i class="fa-regular fa-newspaper"></i>
                 <span>Publicações</span>
             </a>
             <a class="menu-item" [routerLink]="['/paginas/listagem-vagas']">
+                <i class="fa-solid fa-briefcase"></i>
                 <span>Vagas</span>
             </a>
             <a class="menu-item" [routerLink]="['/paginas/listagem-projetos']">
+                <i class="fa-solid fa-laptop-code"></i>
                 <span>Projetos</span>
             </a>
             <a class="menu-item" [routerLink]="['/paginas/listagem-ideias']">
+                <i class="fa-regular fa-lightbulb"></i>
                 <span>Ideias</span>
             </a>
-            <a class="menu-item" (click)="sair();">
-                <span>Sair</span>
+
+            <a class="menu-item logout-item" (click)="sair();">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Sair da conta</span>
             </a>
         </nav>
     </aside>

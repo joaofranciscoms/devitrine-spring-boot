@@ -1,9 +1,14 @@
 <app-header titulo="Ideias"></app-header>
 <main class="content">
-    <div class="card">
+    <div class="card card-post">
+        <div class="form-header">
+            <h2>Colaborar com a Ideia</h2>
+            <p>Compartilhe sugestões, melhorias ou mostre como você pode ajudar a tirá-la do papel.</p>
+        </div>
+
         <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
             <div class="form-group">
-                <label for="conteudo">Colaboração: *</label>
+                <label for="conteudo">Sua colaboração *</label>
                 <textarea formControlName="conteudo" name="conteudo" id="conteudo" placeholder="Compartilhe sugestões, melhorias ou como você pode ajudar"></textarea>
 
                 @if(form.controls.conteudo.hasError('required') && form.controls.conteudo.touched){
@@ -14,8 +19,10 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="secundary-btn comment">Colaborar</button>
-                <button type="button" class="secundary-btn comment" [routerLink]="['/paginas/conteudo-ideia']" [queryParams]="{ id: idIdeia }">
+                <button type="submit" class="primary-btn">
+                    <i class="fa-solid fa-handshake-angle"></i> Enviar Colaboração
+                </button>
+                <button type="button" class="btn-outline" [routerLink]="['/paginas/conteudo-ideia']" [queryParams]="{ id: idIdeia }">
                     Cancelar
                 </button>
             </div>

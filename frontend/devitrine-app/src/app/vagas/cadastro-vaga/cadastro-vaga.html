@@ -1,10 +1,15 @@
-<app-header titulo="Vagas"></app-header>
+<app-header titulo="Nova Vaga"></app-header>
 <main class="content">
     <div class="card card-post">
+        <div class="form-header">
+            <h2>Publicar Oportunidade</h2>
+            <p>Preencha as informações e requisitos da vaga para encontrar talentos.</p>
+        </div>
+
         <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form">
             <div class="form-group">
-                <label for="titulo">Título: *</label>
-                <input formControlName="titulo" type="text" name="titulo" id="titulo" placeholder="Digite o título da vaga">
+                <label for="titulo">Cargo / Título da Vaga *</label>
+                <input formControlName="titulo" type="text" name="titulo" id="titulo" placeholder="Ex.: Desenvolvedor Full Stack Júnior">
 
                 @if (form.controls.titulo.hasError('required') && form.controls.titulo.touched) {
                     <span class="form-hint form-hint-error">
@@ -14,8 +19,8 @@
             </div>
 
             <div class="form-group">
-                <label for="conteudo">Conteúdo: *</label>
-                <textarea formControlName="conteudo" name="conteudo" id="conteudo" placeholder="Escreva o conteúdo da vaga"></textarea>
+                <label for="conteudo">Descrição das atividades *</label>
+                <textarea formControlName="conteudo" name="conteudo" id="conteudo" placeholder="Escreva os detalhes sobre a vaga e a empresa"></textarea>
 
                 @if (form.controls.conteudo.hasError('required') && form.controls.conteudo.touched) {
                     <span class="form-hint form-hint-error">
@@ -25,8 +30,8 @@
             </div>
 
             <div class="form-group">
-                <label for="requisitos">Requisitos: *</label>
-                <textarea formControlName="requisitos" name="requisitos" id="requisitos" placeholder="Escreva os requisitos"></textarea>
+                <label for="requisitos">Requisitos e Diferenciais *</label>
+                <textarea formControlName="requisitos" name="requisitos" id="requisitos" placeholder="Liste as tecnologias e habilidades esperadas"></textarea>
 
                 @if (form.controls.requisitos.hasError('required') && form.controls.requisitos.touched) {
                     <span class="form-hint form-hint-error">
@@ -36,8 +41,10 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="secundary-btn comment">Publicar</button>
-                <button type="button" class="secundary-btn comment" [routerLink]="['/paginas/listagem-vagas']">
+                <button type="submit" class="primary-btn">
+                    <i class="fa-solid fa-check"></i> Publicar Vaga
+                </button>
+                <button type="button" class="btn-outline" [routerLink]="['/paginas/listagem-vagas']">
                     Cancelar
                 </button>
             </div>

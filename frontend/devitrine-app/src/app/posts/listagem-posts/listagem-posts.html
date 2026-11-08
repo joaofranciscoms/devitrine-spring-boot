@@ -1,47 +1,55 @@
-<app-header titulo="Posts"></app-header>
+<app-header titulo="Publicações"></app-header>
 <main class="content">
-    <div class="card-full">
-        <div class="table-card">
-            @if (listagem$ | async; as listagem) {
-                <table class="datatable">
-                    <thead>
-                        <tr>
-                            <th>Título da Publicação</th>
-                            <th>Data da Publicação</th>
-                        </tr>
-                    </thead>
+    <div class="page-banner">
+        <div class="banner-info">
+            <h2>Mural de Publicações</h2>
+            <p>Explore artigos, novidades e discussões compartilhadas pela comunidade.</p>
+        </div>
+        <button class="primary-btn" (click)="criarPost()">
+            <i class="fa-solid fa-plus"></i> Realizar Nova Postagem
+        </button>
+    </div>
 
-                    <tbody>
-
-                        @for( post of listagem.content; track post.id ){
-                            <tr>
-                                <td class="post-title" (click)="visualizarPost(post.id)"> {{ post.titulo }} </td>
-                                <td> {{ post.dataPostagem | date:'dd/MM/yyyy HH:mm' }} </td>
-                                <td class="visualize-btn" (click)="visualizarPost(post.id)"> Visualizar</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-                <div class="table-footer">
-                    <span>Mostrando {{ registroInicial(listagem) }} - {{ registroFinal(listagem) }} 
-                        de {{ listagem.totalElements }} Registros
-                    </span>
-
-                    <div class="pagination">
-                        @for (pagina of paginas(listagem.totalPages); track pagina){
-                            <button class="page-btn"
-                                    [class.active]="pagina === listagem.number"
-                                    (click)="navegar(pagina)">
-                                {{ pagina + 1 }}
-                            </button>
-                        }
+    @if (listagem$ | async; as listagem) {
+        <div class="cards-grid">
+            @for (post of listagem.content; track post.id) {
+                <article class="item-card" (click)="visualizarPost(post.id)">
+                    <div>
+                        <div class="card-top">
+                            <span class="badge-type">
+                                <i class="fa-regular fa-file-lines"></i> Publicação
+                            </span>
+                            <span>
+                                <i class="fa-regular fa-calendar"></i>
+                                {{ post.dataPostagem | date:'dd/MM/yyyy HH:mm' }}
+                            </span>
+                        </div>
+                        <h3 class="card-title">{{ post.titulo }}</h3>
                     </div>
-                </div>
+
+                    <div class="card-footer">
+                        <span class="card-action">
+                            Ler publicação <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </article>
             }
         </div>
-        <div>
-            <button class="secondary-btn" (click)="criarPost()">Realizar Nova Postagem</button>
+
+        <div class="table-footer">
+            <span>Mostrando {{ registroInicial(listagem) }} - {{ registroFinal(listagem) }} 
+                de {{ listagem.totalElements }} Registros
+            </span>
+
+            <div class="pagination">
+                @for (pagina of paginas(listagem.totalPages); track pagina) {
+                    <button class="page-btn"
+                            [class.active]="pagina === listagem.number"
+                            (click)="navegar(pagina)">
+                        {{ pagina + 1 }}
+                    </button>
+                }
+            </div>
         </div>
-    </div>
+    }
 </main>
