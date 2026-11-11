@@ -89,6 +89,7 @@ spring:
 > Confira no arquivo do projeto os valores padrão exatos e mantenha o banco criado com o mesmo nome definido na URL.
 
 Alem da conexao com o banco, o `application.yml` precisa conter as configurações do JWT:
+> Por padrão o projeto já tem uma chave configurada.
 
 ```yaml
 app:
