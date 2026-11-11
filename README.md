@@ -126,7 +126,7 @@ npm start
 
 > O backend precisa estar em execução para que o frontend consiga listar e criar posts, pois a aplicação consome a API em `http://localhost:8080/api`.
 
-## Solucao de problemas
+## Solução de problemas
 
 - **Erro de conexao com o banco:** verifique se o PostgreSQL esta em execucao, se o banco foi criado e se usuario, senha e nome do banco no `application.yml` estao corretos.
 - **Falha ao iniciar a API por propriedade ausente:** confirme que `app.jwt.secret` e `app.jwt.expiration-seconds` estao definidos no `application.yml`.
