@@ -224,7 +224,7 @@ common/
 
 ## Autenticação e perfis de usuário
 
-A API utiliza autenticacao baseada em token JWT:
+A API utiliza autenticação baseada em token JWT:
 
 1. O usuario se cadastra em `POST /auth/signup` ou faz login em `POST /auth/signin`.
 2. A resposta da autenticacao fornece o token JWT, assinado com o algoritmo HS256 e com tempo de expiracao configuravel.
@@ -234,9 +234,9 @@ A API utiliza autenticacao baseada em token JWT:
 Authorization: Bearer <token>
 ```
 
-O token carrega o identificador do usuario, o nome, o tipo de perfil e a data de expiracao. Tokens invalidos, adulterados ou expirados sao rejeitados.
+O token carrega o identificador do usuário, o nome, o tipo de perfil e a data de expiração. Tokens inválidos, adulterados ou expirados sao rejeitados.
 
-Existem tres perfis de usuario:
+Existem tres perfis de usuário:
 
 | Perfil | Permissoes especificas |
 |--------|------------------------|
@@ -254,14 +254,14 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Autenticacao
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/auth/signup` | Cadastra um novo usuario. |
 | POST | `/auth/signin` | Autentica um usuario existente. |
 
 ### Posts
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/posts` | Cria um novo post. |
 | GET | `/api/posts` | Lista os posts. |
@@ -271,7 +271,7 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Comentarios
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/comentarios` | Cria um comentario. |
 | GET | `/api/comentarios?postId={id}` | Lista os comentarios de um post (`postId` obrigatorio). |
@@ -281,7 +281,7 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Projetos
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/projetos` | Cria um projeto. |
 | GET | `/api/projetos` | Lista os projetos. Filtros opcionais: `tipo` e `tecnologia`. |
@@ -289,13 +289,13 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Tecnologias
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | GET | `/api/tecnologias` | Lista os nomes das tecnologias disponiveis. |
 
 ### Vagas
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/vagas` | Cria uma vaga. Restrito a usuarios do tipo empresa. |
 | GET | `/api/vagas` | Lista as vagas. |
@@ -303,14 +303,14 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Candidaturas
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/candidaturas` | Cria uma candidatura. Restrito a usuarios do tipo desenvolvedor ou pesquisador. |
 | GET | `/api/candidaturas` | Lista as candidaturas. |
 
 ### Ideias
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/ideias` | Cria uma ideia. |
 | GET | `/api/ideias` | Lista as ideias. |
@@ -318,7 +318,7 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Colaboracoes
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/colaboracoes` | Registra uma colaboracao em uma ideia. |
 | GET | `/api/colaboracoes?ideiaId={id}` | Lista as colaboracoes de uma ideia (`ideiaId` obrigatorio). |
@@ -352,12 +352,3 @@ Listagem paginada:
 ```
 GET http://localhost:8080/api/posts?page=0&size=5
 ```
-
-## Proximos passos
-
-O projeto segue em evolucao. Algumas melhorias previstas:
-
-- Continuar o desenvolvimento do frontend, que hoje cobre posts e comentarios
-- Ampliar as opcoes de filtro e busca de projetos
-- Edicao e remocao de vagas, ideias e projetos
-- Testes automatizados
