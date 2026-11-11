@@ -50,7 +50,7 @@ O projeto foi pensado para execucao local. Siga os passos abaixo na ordem.
 Instale as ferramentas abaixo antes de comecar:
 
 - Git
-- JDK - Versão compatível com o projeto, 17 ou superior)
+- JDK - Versão compatível com o projeto, 21 ou superior)
 - IntelliJ IDEA para executar a API
 - PostgreSQL
 - Node.js
