@@ -154,8 +154,6 @@ npm start
 | RF10 | O sistema deve permitir que desenvolvedores publiquem projetos pessoais. |
 | RF11 | O sistema deve permitir que projetos sejam classificados por tecnologia. |
 
-> Projeto em desenvolvimento. Os requisitos acima estao contemplados pela versao atual, mas a plataforma continua recebendo melhorias.
-
 ## Tecnologias utilizadas
 
 ### Backend
