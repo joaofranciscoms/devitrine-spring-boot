@@ -180,7 +180,7 @@ npm start
 
 ## Estrutura do projeto
 
-A organizacao do backend segue a separacao por dominio, com camadas bem definidas dentro de cada um:
+A organizacao do backend segue a separação por domínio, com camadas bem definidas dentro de cada um:
 
 ```
 dominio/
