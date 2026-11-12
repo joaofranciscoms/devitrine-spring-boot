@@ -11,17 +11,17 @@ Plataforma digital voltada para a area de tecnologia, onde desenvolvedores, pesq
 ## Sumário
 
 - [Sobre o projeto](#sobre-o-projeto)
-- [Requisitos funcionais](#requisitos-funcionais)
-- [Tecnologias utilizadas](#tecnologias-utilizadas)
-- [Estrutura do projeto](#estrutura-do-projeto)
-- [Autenticação e perfis de usuário](#autenticacao-e-perfis-de-usuario)
-- [Endpoints da API](#endpoints-da-api)
 - [Como executar localmente](#como-executar-localmente)
   - [Pre-requisitos](#pre-requisitos)
   - [Clonando o repositório](#clonando-o-repositorio)
   - [Configurando o banco de dados](#configurando-o-banco-de-dados)
   - [Executando o backend](#executando-o-backend)
   - [Executando o frontend](#executando-o-frontend)
+- [Requisitos funcionais](#requisitos-funcionais)
+- [Tecnologias utilizadas](#tecnologias-utilizadas)
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Autenticação e perfis de usuário](#autenticacao-e-perfis-de-usuario)
+- [Endpoints da API](#endpoints-da-api)
 - [Solução de problemas](#solucao-de-problemas)
 - [Proximos passos](#proximos-passos)
 
