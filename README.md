@@ -41,6 +41,103 @@ Hoje, o projeto permite:
 
 O projeto e composto por uma API REST (backend) e uma aplicacao web (frontend), executados localmente.
 
+## Como executar localmente
+
+O projeto foi pensado para execucao local. Siga os passos abaixo na ordem.
+
+### Pre-requisitos
+
+Instale as ferramentas abaixo antes de comecar:
+
+- Git
+- JDK 21 ou superior
+- IntelliJ IDEA para executar a API
+- PostgreSQL
+- Node.js
+- Visual Studio Code - Para executar o frontend
+
+Observação sobre o Angular: não e necessário instalar o Angular CLI globalmente. O CLI vem como dependência do projeto e é instalado junto com as demais dependências ao executar `npm install`, sendo utilizado automaticamente pelo comando `npm start`.
+
+### Clonando o repositório
+
+```bash
+git clone https://github.com/joaofranciscoms/devitrine-spring-boot.git
+```
+
+### Configurando o banco de dados
+
+1. Certifique-se de que o PostgreSQL esta em execução (porta padrão `5432`).
+2. Crie um banco de dados vazio. Pode ser feito pelo pgAdmin ou pelo terminal:
+
+```sql
+CREATE DATABASE devitrine;
+```
+
+3. Utilize o usuário e a senha padrão configurados no arquivo `application.yml` do backend (em `src/main/resources`).
+
+Caso voce prefira usar outro nome de banco, outro usuário ou outra senha, basta alterar os valores correspondentes no `application.yml`. Exemplo da seção de conexão:
+
+```yaml
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/devitrine}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+```
+
+> Confira no arquivo do projeto os valores padrão exatos e mantenha o banco criado com o mesmo nome definido na URL.
+
+Alem da conexao com o banco, o `application.yml` precisa conter as configurações do JWT:
+> Por padrão o projeto já tem uma chave configurada.
+
+```yaml
+app:
+  jwt:
+    secret: <chave-longa>
+    expiration-seconds: 3600
+```
+
+### Executando o backend
+
+1. Abra o projeto no IntelliJ IDEA (pasta do backend, onde esta o `pom.xml`).
+2. Aguarde o IntelliJ importar as dependências do Maven.
+3. Certifique-se de que o Lombok e o processamento de anotações estao habilitados. Isso é necessário para o Lombok e o MapStruct.
+4. Execute a classe principal da aplicação (classe anotada com `@SpringBootApplication`).
+5. A API ficara disponivel em `http://localhost:8080`.
+
+### Executando o frontend
+
+1. Abra a pasta do frontend no Visual Studio Code.
+2. Abra o terminal integrado (`Ctrl + '`).
+3. Instale as dependências (necessário apenas na primeira execução):
+
+```bash
+npm install
+```
+
+4. Inicie a aplicação:
+
+```bash
+npm start
+```
+
+5. Acesse `http://localhost:4200` no navegador.
+
+> O backend precisa estar em execução para que o frontend consiga listar e criar posts, pois a aplicação consome a API em `http://localhost:8080/api`.
+
+## Solução de problemas
+
+- **Erro de conexao com o banco:** verifique se o PostgreSQL esta em execucao, se o banco foi criado e se usuario, senha e nome do banco no `application.yml` estao corretos.
+- **Falha ao iniciar a API por propriedade ausente:** confirme que `app.jwt.secret` e `app.jwt.expiration-seconds` estao definidos no `application.yml`.
+- **Resposta 401 ou acesso negado nas rotas `/api`:** verifique se o token foi obtido em `/auth/signin` ou `/auth/signup`, se esta sendo enviado no cabecalho `Authorization` e se ainda nao expirou.
+- Ao receber acesso negado, verifique as permissoes do perfil da sessao. Empresas podem publicar vagas, pesquisadores podem publicar projetos de pesquisa e artigos cientificos, e desenvolvedores podem publicar projetos pessoais e se candidatar a vagas.
+- **Porta 8080 em uso:** encerre o processo que esta usando a porta ou altere `server.port` no `application.yml` (e atualize a URL base no servico do frontend).
+- **Porta 4200 em uso:** o Angular costuma sugerir outra porta automaticamente. Aceite a sugestao ou encerre o processo que ocupa a porta.
+- **Erros de compilacao relacionados a mappers ou getters:** confirme que o processamento de anotacoes esta habilitado no IntelliJ.
+- **Erro de CORS no navegador:** confirme que o backend esta no ar e acessivel em `http://localhost:8080`.
+- **Comando `npm` nao encontrado:** instale o Node.js e reabra o terminal.
+
 ## Requisitos funcionais
 
 | Codigo | Descricao |
@@ -56,8 +153,6 @@ O projeto e composto por uma API REST (backend) e uma aplicacao web (frontend), 
 | RF09 | O sistema deve permitir que pesquisadores publiquem artigos e projetos cientificos. |
 | RF10 | O sistema deve permitir que desenvolvedores publiquem projetos pessoais. |
 | RF11 | O sistema deve permitir que projetos sejam classificados por tecnologia. |
-
-> Projeto em desenvolvimento. Os requisitos acima estao contemplados pela versao atual, mas a plataforma continua recebendo melhorias.
 
 ## Tecnologias utilizadas
 
@@ -85,7 +180,7 @@ O projeto e composto por uma API REST (backend) e uma aplicacao web (frontend), 
 
 ## Estrutura do projeto
 
-A organizacao do backend segue a separacao por dominio, com camadas bem definidas dentro de cada um:
+A organizacao do backend segue a separação por domínio, com camadas bem definidas dentro de cada um:
 
 ```
 dominio/
@@ -129,7 +224,7 @@ common/
 
 ## Autenticação e perfis de usuário
 
-A API utiliza autenticacao baseada em token JWT:
+A API utiliza autenticação baseada em token JWT:
 
 1. O usuario se cadastra em `POST /auth/signup` ou faz login em `POST /auth/signin`.
 2. A resposta da autenticacao fornece o token JWT, assinado com o algoritmo HS256 e com tempo de expiracao configuravel.
@@ -139,9 +234,9 @@ A API utiliza autenticacao baseada em token JWT:
 Authorization: Bearer <token>
 ```
 
-O token carrega o identificador do usuario, o nome, o tipo de perfil e a data de expiracao. Tokens invalidos, adulterados ou expirados sao rejeitados.
+O token carrega o identificador do usuário, o nome, o tipo de perfil e a data de expiração. Tokens inválidos, adulterados ou expirados sao rejeitados.
 
-Existem tres perfis de usuario:
+Existem tres perfis de usuário:
 
 | Perfil | Permissoes especificas |
 |--------|------------------------|
@@ -159,14 +254,14 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Autenticacao
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/auth/signup` | Cadastra um novo usuario. |
 | POST | `/auth/signin` | Autentica um usuario existente. |
 
 ### Posts
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/posts` | Cria um novo post. |
 | GET | `/api/posts` | Lista os posts. |
@@ -176,7 +271,7 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Comentarios
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/comentarios` | Cria um comentario. |
 | GET | `/api/comentarios?postId={id}` | Lista os comentarios de um post (`postId` obrigatorio). |
@@ -186,7 +281,7 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Projetos
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/projetos` | Desenvolvedores podem publicar projetos pessoais. Pesquisadores podem publicar projetos de pesquisa e artigos cientificos. |
 | GET | `/api/projetos` | Lista os projetos. Filtros opcionais: `tipo` e `tecnologia`. |
@@ -194,13 +289,13 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Tecnologias
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | GET | `/api/tecnologias` | Lista os nomes das tecnologias disponiveis. |
 
 ### Vagas
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/vagas` | Cria uma vaga. Restrito a usuarios do tipo empresa. |
 | GET | `/api/vagas` | Lista as vagas. |
@@ -208,14 +303,14 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Candidaturas
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/candidaturas` | Cria uma candidatura. Restrito a usuarios do tipo desenvolvedor. |
 | GET | `/api/candidaturas` | Lista as candidaturas. |
 
 ### Ideias
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/ideias` | Cria uma ideia. |
 | GET | `/api/ideias` | Lista as ideias. |
@@ -223,7 +318,7 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 ### Colaboracoes
 
-| Metodo | Rota | Descricao |
+| Metodo | Rota | Descrição |
 |--------|------|-----------|
 | POST | `/api/colaboracoes` | Registra uma colaboracao em uma ideia. |
 | GET | `/api/colaboracoes?ideiaId={id}` | Lista as colaboracoes de uma ideia (`ideiaId` obrigatorio). |
@@ -257,108 +352,3 @@ Listagem paginada:
 ```
 GET http://localhost:8080/api/posts?page=0&size=5
 ```
-
-## Como executar localmente
-
-O projeto foi pensado para execucao local. Siga os passos abaixo na ordem.
-
-### Pre-requisitos
-
-Instale as ferramentas abaixo antes de comecar:
-
-- Git
-- JDK - Versão compatível com o projeto, 17 ou superior)
-- IntelliJ IDEA para executar a API
-- PostgreSQL
-- Node.js
-- Visual Studio Code - Para executar o frontend
-
-Observação sobre o Angular: não e necessário instalar o Angular CLI globalmente. O CLI vem como dependência do projeto e é instalado junto com as demais dependências ao executar `npm install`, sendo utilizado automaticamente pelo comando `npm start`.
-
-### Clonando o repositório
-
-```bash
-git clone https://github.com/joaofranciscoms/devitrine-spring-boot.git
-```
-
-### Configurando o banco de dados
-
-1. Certifique-se de que o PostgreSQL esta em execução (porta padrão `5432`).
-2. Crie um banco de dados vazio. Pode ser feito pelo pgAdmin ou pelo terminal:
-
-```sql
-CREATE DATABASE devitrine;
-```
-
-3. Utilize o usuário e a senha padrão configurados no arquivo `application.yml` do backend (em `src/main/resources`).
-
-Caso voce prefira usar outro nome de banco, outro usuário ou outra senha, basta alterar os valores correspondentes no `application.yml`. Exemplo da seção de conexão:
-
-```yaml
-spring:
-  datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/devitrine}
-    username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
-    driver-class-name: org.postgresql.Driver
-```
-
-> Confira no arquivo do projeto os valores padrão exatos e mantenha o banco criado com o mesmo nome definido na URL.
-
-Alem da conexao com o banco, o `application.yml` precisa conter as configurações do JWT:
-
-```yaml
-app:
-  jwt:
-    secret: <chave-longa>
-    expiration-seconds: 3600
-```
-
-### Executando o backend
-
-1. Abra o projeto no IntelliJ IDEA (pasta do backend, onde esta o `pom.xml`).
-2. Aguarde o IntelliJ importar as dependências do Maven.
-3. Certifique-se de que o Lombok e o processamento de anotações estao habilitados. Isso é necessário para o Lombok e o MapStruct.
-4. Execute a classe principal da aplicação (classe anotada com `@SpringBootApplication`).
-5. A API ficara disponivel em `http://localhost:8080`.
-
-### Executando o frontend
-
-1. Abra a pasta do frontend no Visual Studio Code.
-2. Abra o terminal integrado (`Ctrl + '`).
-3. Instale as dependências (necessário apenas na primeira execução):
-
-```bash
-npm install
-```
-
-4. Inicie a aplicação:
-
-```bash
-npm start
-```
-
-5. Acesse `http://localhost:4200` no navegador.
-
-> O backend precisa estar em execução para que o frontend consiga listar e criar posts, pois a aplicação consome a API em `http://localhost:8080/api`.
-
-## Solucao de problemas
-
-- **Erro de conexao com o banco:** verifique se o PostgreSQL esta em execucao, se o banco foi criado e se usuario, senha e nome do banco no `application.yml` estao corretos.
-- **Falha ao iniciar a API por propriedade ausente:** confirme que `app.jwt.secret` e `app.jwt.expiration-seconds` estao definidos no `application.yml`.
-- **Resposta 401 ou acesso negado nas rotas `/api`:** verifique se o token foi obtido em `/auth/signin` ou `/auth/signup`, se esta sendo enviado no cabecalho `Authorization` e se ainda nao expirou.
-- Ao receber acesso negado, verifique as permissoes do perfil da sessao. Empresas podem publicar vagas, pesquisadores podem publicar projetos de pesquisa e artigos cientificos, e desenvolvedores podem publicar projetos pessoais e se candidatar a vagas.
-- **Porta 8080 em uso:** encerre o processo que esta usando a porta ou altere `server.port` no `application.yml` (e atualize a URL base no servico do frontend).
-- **Porta 4200 em uso:** o Angular costuma sugerir outra porta automaticamente. Aceite a sugestao ou encerre o processo que ocupa a porta.
-- **Erros de compilacao relacionados a mappers ou getters:** confirme que o processamento de anotacoes esta habilitado no IntelliJ.
-- **Erro de CORS no navegador:** confirme que o backend esta no ar e acessivel em `http://localhost:8080`.
-- **Comando `npm` nao encontrado:** instale o Node.js e reabra o terminal.
-
-## Proximos passos
-
-O projeto segue em evolucao. Algumas melhorias previstas:
-
-- Continuar o desenvolvimento do frontend, que hoje cobre posts e comentarios
-- Ampliar as opcoes de filtro e busca de projetos
-- Edicao e remocao de vagas, ideias e projetos
-- Testes automatizados
