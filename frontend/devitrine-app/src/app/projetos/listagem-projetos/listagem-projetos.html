@@ -5,9 +5,11 @@
             <h2>Vitrine de Projetos & Pesquisas</h2>
             <p>Conheça os repositórios, sistemas e artigos desenvolvidos na comunidade.</p>
         </div>
-        <button class="primary-btn" (click)="criarProjeto()">
-            <i class="fa-solid fa-plus"></i> Publicar Novo Projeto
-        </button>
+        @if (podePublicar) {
+            <button class="primary-btn" (click)="criarProjeto()">
+                <i class="fa-solid fa-plus"></i> Publicar Novo Projeto
+            </button>
+        }
     </div>
 
     <div class="filtros">

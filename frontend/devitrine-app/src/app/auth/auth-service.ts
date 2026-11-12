@@ -155,6 +155,6 @@ export class AuthService {
   }
 
   get podeCandidatar(): boolean {
-    return this.tipoUsuario === 'PESQUISADOR' || this.tipoUsuario === 'DESENVOLVEDOR';
+    return this.tipoUsuario === 'DESENVOLVEDOR';
   }
 }

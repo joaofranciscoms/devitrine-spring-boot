@@ -9,11 +9,14 @@ import io.github.joaofranciscoms.devitrine.dominio.projeto.model.Projeto;
 import io.github.joaofranciscoms.devitrine.dominio.projeto.model.TipoProjeto;
 import io.github.joaofranciscoms.devitrine.dominio.projeto.repository.ProjetoRepository;
 import io.github.joaofranciscoms.devitrine.dominio.tecnologia.service.TecnologiaService;
+import io.github.joaofranciscoms.devitrine.dominio.usuario.model.TipoUsuario;
 import io.github.joaofranciscoms.devitrine.dominio.usuario.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
@@ -27,6 +30,15 @@ public class ProjetoService {
     private final ProjetoDetalhesMapper projetoDetalhesMapper;
 
     public ProjetoDetalhesDTO save(ProjetoDTO dto, Usuario autor) {
+        TipoUsuario perfilPermitido = switch (dto.tipo()) {
+            case PROJETO_PESSOAL -> TipoUsuario.DESENVOLVEDOR;
+            case PROJETO_PESQUISA, ARTIGO_CIENTIFICO -> TipoUsuario.PESQUISADOR;
+            case null -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Informe o tipo de publicação.");
+        };
+        if (autor.getTipo() != perfilPermitido) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Seu perfil não pode criar este tipo de publicação.");
+        }
+
         Projeto entity = projetoMapper.toEntity(dto);
         entity.setAutor(autor);
         entity.setTecnologias(tecnologiaService.obterOuCriar(dto.tecnologias()));

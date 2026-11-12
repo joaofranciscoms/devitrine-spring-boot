@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { catchError, EMPTY, Observable } from 'rxjs';
 import { ProjetoService } from '../projeto-service';
 import { PageResult } from '../../common/pagination/page-result';
-import { descricaoTipoProjeto, DetalhesProjeto, TipoProjeto, TIPOS_PROJETO } from '../dados-projeto';
+import { descricaoTipoProjeto, DetalhesProjeto, TipoProjeto, TIPOS_PROJETO, tiposProjetoPermitidos } from '../dados-projeto';
+import { AuthService } from '../../auth/auth-service';
 import { Header } from '../../common/components/header/header';
 
 @Component({
@@ -16,6 +17,7 @@ import { Header } from '../../common/components/header/header';
 export class ListagemProjetos implements OnInit {
   router = inject(Router);
   service = inject(ProjetoService);
+  readonly podePublicar = tiposProjetoPermitidos(inject(AuthService).tipoUsuario).length > 0;
 
   listagem$!: Observable<PageResult<DetalhesProjeto>>;
   tecnologias$!: Observable<string[]>;

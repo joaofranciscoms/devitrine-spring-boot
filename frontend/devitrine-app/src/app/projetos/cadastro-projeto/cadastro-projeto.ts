@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ProjetoService } from '../projeto-service';
-import { DadosProjetoForm, TipoProjeto, TIPOS_PROJETO } from '../dados-projeto';
+import { DadosProjetoForm, TipoProjeto, tiposProjetoPermitidos } from '../dados-projeto';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../auth/auth-service';
 import { Header } from '../../common/components/header/header';
 
 interface SalvarProjetoForm {
@@ -25,7 +26,7 @@ export class CadastroProjeto implements OnInit {
   service = inject(ProjetoService);
   toast = inject(ToastrService);
   router = inject(Router);
-  tipos = TIPOS_PROJETO;
+  readonly tipos = tiposProjetoPermitidos(inject(AuthService).tipoUsuario);
 
   ngOnInit(): void {
     this.form = new FormGroup<SalvarProjetoForm>({
@@ -59,7 +60,13 @@ export class CadastroProjeto implements OnInit {
           queryParams: { id: projeto.id },
         });
       },
-      error: () => this.toast.error('Erro ao publicar o projeto!'),
+      error: (err) => {
+        if (err.status === 403) {
+          this.toast.error('Seu perfil não pode criar este tipo de publicação.');
+        } else {
+          this.toast.error('Erro ao publicar o projeto!');
+        }
+      },
     });
   }
 }

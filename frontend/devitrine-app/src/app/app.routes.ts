@@ -1,10 +1,12 @@
-import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router, Routes } from '@angular/router';
 import { Template } from './template/template';
 import { ListagemPosts } from './posts/listagem-posts/listagem-posts';
 import { ConteudoPost } from './posts/conteudo-post/conteudo-post';
 import { ComentarioPost } from './comentarios/comentario-post/comentario-post';
 import { Login } from './auth/login/login';
 import { authGuard } from './auth/auth-guard';
+import { AuthService } from './auth/auth-service';
 import { CadastroPost } from './posts/cadastro-post/cadastro-post';
 import { ListagemVagas } from './vagas/listagem-vagas/listagem-vagas';
 import { ConteudoVaga } from './vagas/conteudo-vaga/conteudo-vaga';
@@ -12,6 +14,7 @@ import { CadastroVaga } from './vagas/cadastro-vaga/cadastro-vaga';
 import { ListagemProjetos } from './projetos/listagem-projetos/listagem-projetos';
 import { ConteudoProjeto } from './projetos/conteudo-projeto/conteudo-projeto';
 import { CadastroProjeto } from './projetos/cadastro-projeto/cadastro-projeto';
+import { tiposProjetoPermitidos } from './projetos/dados-projeto';
 import { ListagemIdeias } from './ideias/listagem-ideias/listagem-ideias';
 import { ConteudoIdeia } from './ideias/conteudo-ideia/conteudo-ideia';
 import { CadastroIdeia } from './ideias/cadastro-ideia/cadastro-ideia';
@@ -71,7 +74,12 @@ export const routes: Routes = [
             },
             {
                 path: 'cadastro-projeto',
-                component: CadastroProjeto
+                component: CadastroProjeto,
+                canActivate: [() => {
+                    const perfil = inject(AuthService).tipoUsuario;
+                    return tiposProjetoPermitidos(perfil).length > 0
+                        || inject(Router).createUrlTree(['/paginas/listagem-projetos']);
+                }]
             },
             {
                 path: 'listagem-ideias',

@@ -23,7 +23,7 @@ public class CandidaturaController {
     private final CandidaturaService service;
 
     @PostMapping
-    @ApenasTipo({TipoUsuario.PESQUISADOR, TipoUsuario.DESENVOLVEDOR})
+    @ApenasTipo(TipoUsuario.DESENVOLVEDOR)
     public ResponseEntity<CandidaturaDetalhesDTO> salvarCandidatura(
             @RequestBody @Valid CandidaturaDTO dto,
             @RequestAttribute("usuarioAutenticado") Usuario usuario) {
@@ -32,7 +32,7 @@ public class CandidaturaController {
     }
 
     @GetMapping
-    public Page<CandidaturaDetalhesDTO> listarVagas(
+    public Page<CandidaturaDetalhesDTO> listarCandidaturas(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size)
     {

@@ -36,7 +36,7 @@ Hoje, o projeto permite:
 - Cadastro e autenticacao de usuarios com perfil de desenvolvedor, pesquisador ou empresa.
 - Publicacao de posts, com comentarios.
 - Publicacao de projetos, filtraveis por tipo e por tecnologia.
-- Publicacao de vagas por empresas e candidatura de desenvolvedores e pesquisadores.
+- Publicacao de vagas por empresas e candidatura de desenvolvedores.
 - Registro de ideias e colaboracao de outros usuarios nelas.
 
 O projeto e composto por uma API REST (backend) e uma aplicacao web (frontend), executados localmente.
@@ -145,11 +145,11 @@ Existem tres perfis de usuario:
 
 | Perfil | Permissoes especificas |
 |--------|------------------------|
-| Desenvolvedor | Pode se candidatar a vagas. |
-| Pesquisador | Pode se candidatar a vagas. |
+| Desenvolvedor | Pode publicar projetos pessoais e se candidatar a vagas. |
+| Pesquisador | Pode publicar projetos de pesquisa e artigos cientificos. |
 | Empresa | Pode publicar vagas. |
 
-Os demais recursos (posts, comentarios, projetos, ideias e colaboracoes) estao disponiveis para qualquer usuario autenticado.
+Qualquer usuario autenticado pode consultar projetos e artigos e usar os recursos de posts, comentarios, ideias e colaboracoes.
 
 ## Endpoints da API
 
@@ -188,7 +188,7 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 | Metodo | Rota | Descricao |
 |--------|------|-----------|
-| POST | `/api/projetos` | Cria um projeto. |
+| POST | `/api/projetos` | Desenvolvedores podem publicar projetos pessoais. Pesquisadores podem publicar projetos de pesquisa e artigos cientificos. |
 | GET | `/api/projetos` | Lista os projetos. Filtros opcionais: `tipo` e `tecnologia`. |
 | GET | `/api/projetos/{id}` | Retorna os detalhes de um projeto. |
 
@@ -210,7 +210,7 @@ Os endpoints de cadastro e login ficam sob `/auth`. Todos os demais ficam sob `/
 
 | Metodo | Rota | Descricao |
 |--------|------|-----------|
-| POST | `/api/candidaturas` | Cria uma candidatura. Restrito a usuarios do tipo desenvolvedor ou pesquisador. |
+| POST | `/api/candidaturas` | Cria uma candidatura. Restrito a usuarios do tipo desenvolvedor. |
 | GET | `/api/candidaturas` | Lista as candidaturas. |
 
 ### Ideias
@@ -347,7 +347,7 @@ npm start
 - **Erro de conexao com o banco:** verifique se o PostgreSQL esta em execucao, se o banco foi criado e se usuario, senha e nome do banco no `application.yml` estao corretos.
 - **Falha ao iniciar a API por propriedade ausente:** confirme que `app.jwt.secret` e `app.jwt.expiration-seconds` estao definidos no `application.yml`.
 - **Resposta 401 ou acesso negado nas rotas `/api`:** verifique se o token foi obtido em `/auth/signin` ou `/auth/signup`, se esta sendo enviado no cabecalho `Authorization` e se ainda nao expirou.
-- **Acesso negado ao criar vaga ou candidatura:** vagas so podem ser criadas por usuarios do tipo empresa, e candidaturas apenas por desenvolvedores e pesquisadores.
+- Ao receber acesso negado, verifique as permissoes do perfil da sessao. Empresas podem publicar vagas, pesquisadores podem publicar projetos de pesquisa e artigos cientificos, e desenvolvedores podem publicar projetos pessoais e se candidatar a vagas.
 - **Porta 8080 em uso:** encerre o processo que esta usando a porta ou altere `server.port` no `application.yml` (e atualize a URL base no servico do frontend).
 - **Porta 4200 em uso:** o Angular costuma sugerir outra porta automaticamente. Aceite a sugestao ou encerre o processo que ocupa a porta.
 - **Erros de compilacao relacionados a mappers ou getters:** confirme que o processamento de anotacoes esta habilitado no IntelliJ.
